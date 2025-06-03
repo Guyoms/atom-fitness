@@ -1,0 +1,3205 @@
+x@<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Road to Superman - Programme 90 Jours</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #121a2a;
+            --bg-card: #1d273a;
+            --bg-card-hover: #23304a;
+            --border-color: #2c3a54;
+            --text-primary: #e6edf3;
+            --text-secondary: #a6b3cc;
+            --text-tertiary: #7d8ca6;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #8b5cf6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+            --gradient-blue: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            --gradient-green: linear-gradient(135deg, #10b981, #3b82f6);
+            --gradient-orange: linear-gradient(135deg, #f59e0b, #ef4444);
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(239, 68, 68, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-blue);
+        }
+
+        .logo-text {
+            display: inline-block;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            line-height: 0.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .road-to {
+            display: block;
+            font-size: 2.5em;
+            color: white;
+            text-shadow: 3px 3px 0 #000;
+            margin-bottom: -5px;
+        }
+
+        .superman {
+            display: block;
+            font-size: 4em;
+            color: white;
+            text-shadow: 3px 3px 0 #000;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-blue);
+            border-radius: 4px;
+            width: 3.33%;
+            transition: var(--transition);
+        }
+
+        /* Progress Cards */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .progress-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+        }
+
+        .progress-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-blue);
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        .card-title {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            color: var(--text-tertiary);
+            font-size: 0.85em;
+        }
+
+        .water-tracker {
+            display: flex;
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .water-glass {
+            flex: 1;
+            height: 6px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .water-glass.filled {
+            background: var(--accent-blue);
+        }
+
+        /* Phase Tabs */
+        .phase-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .phase-tab {
+            flex: 1;
+            padding: 20px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-tab:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        .phase-tab.active {
+            background: var(--gradient-blue);
+            color: white;
+            border-color: transparent;
+        }
+
+        .phase-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .phase-desc {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-blue);
+            border-radius: 3px;
+        }
+
+        .section-icon {
+            font-size: 2em;
+            color: var(--accent-blue);
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        .add-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Workout Days */
+        .workout-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .workout-day {
+            aspect-ratio: 1;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            font-size: 0.9em;
+        }
+
+        .workout-day.rest {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+        }
+
+        .workout-day.training {
+            background: linear-gradient(to bottom right, #3b82f6, #1e40af);
+            color: white;
+        }
+
+        .workout-day.cardio {
+            background: linear-gradient(to bottom right, #10b981, #047857);
+            color: white;
+        }
+
+        .workout-day.hiit {
+            background: linear-gradient(to bottom right, #f59e0b, #b45309);
+            color: white;
+        }
+
+        .workout-day.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            z-index: 2;
+        }
+
+        .day-label {
+            font-size: 0.8em;
+        }
+
+        .day-type {
+            font-size: 0.7em;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        /* Exercise List */
+        .exercise-list {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .exercise-item {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .exercise-item:hover {
+            transform: translateX(5px);
+            border-color: var(--accent-blue);
+        }
+
+        .exercise-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 6px;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exercise-check.checked {
+            background: var(--accent-blue);
+        }
+
+        .exercise-check.checked::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+        }
+
+        .exercise-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .exercise-details {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+        }
+
+        .exercise-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .exercise-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .exercise-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Meal Plan */
+        .meal-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .meal-item {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .meal-item:hover {
+            transform: translateX(5px);
+            border-color: var(--accent-green);
+        }
+
+        .meal-info h4 {
+            margin-bottom: 5px;
+            color: var(--accent-green);
+        }
+
+        .meal-desc {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        .meal-calories {
+            background: var(--gradient-green);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* Meal Options */
+        .meal-options {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .meal-option-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .meal-option-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .meal-option-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        /* Supplements */
+        .supplements-section {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .supplements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .supplement-card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .supplement-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            border-color: var(--accent-blue);
+        }
+
+        .supplement-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        .supplement-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .supplement-dose {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+        }
+
+        .supplement-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-orange);
+            color: white;
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 10px;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 100px; /* Ajout d'espace pour le FAB */
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .notes-editor {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 150px;
+            border: 1px solid var(--border-color);
+            margin-top: 15px;
+        }
+
+        #daily-notes {
+            width: 100%;
+            height: 100px;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: inherit;
+            resize: none;
+            font-size: 0.95em;
+        }
+
+        #daily-notes:focus {
+            outline: none;
+        }
+
+        /* Nutrition Info Section */
+        .nutrition-info {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .macros-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .macro-card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .macro-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .macro-name {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        .protein { color: #3b82f6; }
+        .carbs { color: #10b981; }
+        .fats { color: #f59e0b; }
+        .fiber { color: #8b5cf6; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            background: var(--accent-red);
+            transform: rotate(90deg);
+            border-color: var(--accent-red);
+        }
+
+        /* Forms */
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 8px;
+            transition: var(--transition);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-primary {
+            background: var(--gradient-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-orange);
+            color: white;
+            border-color: var(--accent-orange);
+        }
+
+        /* FAB */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            z-index: 100;
+            border: none;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .fab-timer {
+            bottom: 110px;
+            background: var(--gradient-orange);
+        }
+
+        /* Timer Modal */
+        .timer-display {
+            font-size: 3em;
+            font-family: monospace;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--text-primary);
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .timer-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .timer-btn.start {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .timer-btn.stop {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .timer-btn.reset {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Meal Modal */
+        .meal-modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .meal-macros {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .macro-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .macro-value {
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .macro-label {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+
+        .meal-benefits {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--accent-green);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .meal-benefits h3 {
+            margin-bottom: 10px;
+            color: var(--accent-green);
+        }
+
+        .meal-benefits ul {
+            padding-left: 20px;
+        }
+
+        .meal-benefits li {
+            margin-bottom: 8px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-card);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Water Modal */
+        .water-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .water-option {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .water-option:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .water-option.selected {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .water-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .water-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .water-btn.add {
+            background: var(--gradient-blue);
+            color: white;
+        }
+
+        .water-btn.reset {
+            background: var(--accent-orange);
+            color: white;
+        }
+        
+        /* Progress Chart */
+        .progress-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 200px; /* Hauteur fixe */
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--accent-blue);
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            min-width: 30px;
+            transition: height 0.5s ease;
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .phase-tabs {
+                flex-direction: column;
+            }
+            
+            .workout-days {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+            
+            .workout-day:nth-child(5), 
+            .workout-day:nth-child(6), 
+            .workout-day:nth-child(7) {
+                grid-column: span 1;
+            }
+            
+            .macros-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .supplements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .road-to {
+                font-size: 2em;
+            }
+            
+            .superman {
+                font-size: 3em;
+            }
+            
+            .section-title {
+                font-size: 1.2em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .workout-days {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .supplements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .card-value {
+                font-size: 1.5em;
+            }
+            
+            .meal-options {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 10px;
+                justify-content: flex-end;
+            }
+        }
+
+        /* Setup Modal */
+        .setup-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        /* Save indicator */
+        .save-indicator {
+            position: fixed;
+            bottom: 180px;
+            right: 30px;
+            background: var(--accent-green);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .save-indicator.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="save-indicator" id="save-indicator">✓ Données sauvegardées</div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header fade-in">
+            <div class="logo-text">
+                <span class="road-to">ROAD TO</span>
+                <span class="superman">SUPERMAN</span>
+            </div>
+            <p class="subtitle">De <span id="start-weight">106</span>kg à <span id="target-weight">90</span>kg | <span id="start-fat">30</span>% → <span id="target-fat">15</span>% MG</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </header>
+
+        <!-- Setup Card -->
+        <div class="setup-card fade-in">
+            <h2>Personnalisez votre programme</h2>
+            <p>Définissez vos paramètres de départ pour adapter le programme à votre physique</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                <div>
+                    <label for="custom-start-weight">Poids initial (kg)</label>
+                    <input type="number" id="custom-start-weight" min="50" max="200" value="106" step="0.1">
+                </div>
+                <div>
+                    <label for="custom-start-fat">Masse grasse initiale (%)</label>
+                    <input type="number" id="custom-start-fat" min="5" max="50" value="30" step="0.1">
+                </div>
+                <div>
+                    <label for="custom-target-weight">Poids cible (kg)</label>
+                    <input type="number" id="custom-target-weight" min="50" max="200" value="90" step="0.1">
+                </div>
+                <div>
+                    <label for="custom-target-fat">Masse grasse cible (%)</label>
+                    <input type="number" id="custom-target-fat" min="5" max="20" value="15" step="0.1">
+                </div>
+            </div>
+            <button class="btn-primary" onclick="applyCustomSettings()" style="margin-top: 20px;">
+                Appliquer les paramètres
+            </button>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="progress-grid">
+            <div class="progress-card fade-in" onclick="showDayModal()">
+                <div class="card-icon">📅</div>
+                <div class="card-title">Jour actuel</div>
+                <div class="card-value" id="current-day">3</div>
+                <div class="card-subtitle">sur 90 jours | Cliquez pour modifier</div>
+            </div>
+            <div class="progress-card fade-in" onclick="showWeightModal()">
+                <div class="card-icon">⚖️</div>
+                <div class="card-title">Poids actuel</div>
+                <div class="card-value" id="current-weight">102.5 kg</div>
+                <div class="card-subtitle">Objectif: <span id="target-weight-display">90</span> kg | Cliquez pour mettre à jour</div>
+            </div>
+            <div class="progress-card fade-in" onclick="showBodyFatModal()">
+                <div class="card-icon">💪</div>
+                <div class="card-title">Masse grasse</div>
+                <div class="card-value" id="body-fat">27%</div>
+                <div class="card-subtitle">Objectif: <span id="target-fat-display">15</span>% | Cliquez pour modifier</div>
+            </div>
+            <div class="progress-card fade-in" onclick="showCaloriesInfo()">
+                <div class="card-icon">🔥</div>
+                <div class="card-title">Calories jour</div>
+                <div class="card-value" id="daily-calories">2300</div>
+                <div class="card-subtitle" id="phase-name">Phase 1: Force</div>
+            </div>
+            <div class="progress-card fade-in" onclick="showWaterModal()">
+                <div class="card-icon">💧</div>
+                <div class="card-title">Eau consommée</div>
+                <div class="card-value" id="water-amount">1.5 L</div>
+                <div class="card-subtitle">Objectif: 3 L | Cliquez pour enregistrer</div>
+                <div class="water-tracker">
+                    <div class="water-glass filled"></div>
+                    <div class="water-glass filled"></div>
+                    <div class="water-glass filled"></div>
+                    <div class="water-glass"></div>
+                    <div class="water-glass"></div>
+                    <div class="water-glass"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase Selector -->
+        <div class="phase-tabs fade-in">
+            <div class="phase-tab active" onclick="selectPhase(1)">
+                <div class="phase-name">Phase 1</div>
+                <div class="phase-desc">Force & Hypertrophie (J1-30)</div>
+            </div>
+            <div class="phase-tab" onclick="selectPhase(2)">
+                <div class="phase-name">Phase 2</div>
+                <div class="phase-desc">Recomposition (J31-60)</div>
+            </div>
+            <div class="phase-tab" onclick="selectPhase(3)">
+                <div class="phase-name">Phase 3</div>
+                <div class="phase-desc">Définition (J61-90)</div>
+            </div>
+        </div>
+
+        <!-- Nutrition Info -->
+        <div class="nutrition-info fade-in">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <h2 class="section-title">Macros & Objectifs Nutritionnels</h2>
+            </div>
+            <p>Votre programme nutritionnel est conçu pour maximiser la croissance musculaire tout en réduisant la masse graisseuse.</p>
+            
+            <div class="macros-grid">
+                <div class="macro-card">
+                    <div class="macro-value protein" id="protein-value">180g</div>
+                    <div class="macro-name">Protéines</div>
+                    <div class="macro-subtitle">Réparation musculaire</div>
+                </div>
+                <div class="macro-card">
+                    <div class="macro-value carbs" id="carbs-value">250g</div>
+                    <div class="macro-name">Glucides</div>
+                    <div class="macro-subtitle">Énergie pour l'entraînement</div>
+                </div>
+                <div class="macro-card">
+                    <div class="macro-value fats" id="fats-value">70g</div>
+                    <div class="macro-name">Lipides</div>
+                    <div class="macro-subtitle">Hormones & santé</div>
+                </div>
+                <div class="macro-card">
+                    <div class="macro-value fiber" id="fiber-value">35g</div>
+                    <div class="macro-name">Fibres</div>
+                    <div class="macro-subtitle">Digestion & satiété</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-grid">
+            <!-- Workout Section -->
+            <div class="section-card fade-in">
+                <div class="section-header">
+                    <div class="section-icon">🏋️</div>
+                    <h2 class="section-title">Entraînement</h2>
+                    <div class="add-btn" onclick="showAddExerciseModal()">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+
+                <div class="workout-days">
+                    <div class="workout-day training active" onclick="selectDay(0)">
+                        <div class="day-label">LUN</div>
+                        <div class="day-type">Push</div>
+                    </div>
+                    <div class="workout-day training" onclick="selectDay(1)">
+                        <div class="day-label">MAR</div>
+                        <div class="day-type">Legs</div>
+                    </div>
+                    <div class="workout-day cardio" onclick="selectDay(2)">
+                        <div class="day-label">MER</div>
+                        <div class="day-type">Cardio</div>
+                    </div>
+                    <div class="workout-day training" onclick="selectDay(3)">
+                        <div class="day-label">JEU</div>
+                        <div class="day-type">Pull</div>
+                    </div>
+                    <div class="workout-day training" onclick="selectDay(4)">
+                        <div class="day-label">VEN</div>
+                        <div class="day-type">Legs</div>
+                    </div>
+                    <div class="workout-day hiit" onclick="selectDay(5)">
+                        <div class="day-label">SAM</div>
+                        <div class="day-type">HIIT</div>
+                    </div>
+                    <div class="workout-day rest" onclick="selectDay(6)">
+                        <div class="day-label">DIM</div>
+                        <div class="day-type">Repos</div>
+                    </div>
+                </div>
+
+                <h3 id="workout-title" style="margin-bottom: 15px;">Séance du jour - Push</h3>
+                <div class="exercise-list" id="exercise-list">
+                    <!-- Exercises will be populated here -->
+                </div>
+            </div>
+
+            <!-- Nutrition Section -->
+            <div class="section-card fade-in">
+                <div class="section-header">
+                    <div class="section-icon">🍽️</div>
+                    <h2 class="section-title">Nutrition du jour</h2>
+                    <div class="add-btn" onclick="showAddMealModal()">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+
+                <div class="meal-list" id="meal-list">
+                    <!-- Meals will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Supplements Section -->
+        <div class="supplements-section fade-in">
+            <div class="section-header">
+                <div class="section-icon">💊</div>
+                <h2 class="section-title">Supplémentation du jour (ordre chronologique)</h2>
+            </div>
+
+            <div class="supplements-grid">
+                <div class="supplement-card" onclick="showSupplementInfo('carnitine')">
+                    <div class="supplement-icon">🔥</div>
+                    <div class="supplement-name">L-Carnitine</div>
+                    <div class="supplement-dose">1. À jeun le matin (6h30)</div>
+                </div>
+                <div class="supplement-card" onclick="showSupplementInfo('vitamin-d3')">
+                    <span class="supplement-badge">Essentiel</span>
+                    <div class="supplement-icon">☀️</div>
+                    <div class="supplement-name">Vitamine D3 2000IU</div>
+                    <div class="supplement-dose">2. Petit-déjeuner</div>
+                </div>
+                <div class="supplement-card" onclick="showSupplementInfo('multivitamin')">
+                    <div class="supplement-icon">💊</div>
+                    <div class="supplement-name">Multivitamines</div>
+                    <div class="supplement-dose">3. Petit-déjeuner</div>
+                </div>
+                <div class="supplement-card" onclick="showSupplementInfo('omega-3')">
+                    <span class="supplement-badge">Essentiel</span>
+                    <div class="supplement-icon">🐟</div>
+                    <div class="supplement-name">Omega-3 EPA & DHA</div>
+                    <div class="supplement-dose">4. Matin & Soir (2 caps chaque)</div>
+                </div>
+                <div class="supplement-card" onclick="showSupplementInfo('creatine')">
+                    <div class="supplement-icon">⚡</div>
+                    <div class="supplement-name">Créatine Micronisée</div>
+                    <div class="supplement-dose">5. Post-entraînement</div>
+                </div>
+                <div class="supplement-card" onclick="showSupplementInfo('magnesium')">
+                    <span class="supplement-badge">Essentiel</span>
+                    <div class="supplement-icon">🔵</div>
+                    <div class="supplement-name">Magnésium Bisglycinate</div>
+                    <div class="supplement-dose">6. Avant coucher (22h)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="notes-section fade-in">
+            <div class="section-header">
+                <div class="section-icon">📝</div>
+                <h2 class="section-title">Journal d'entraînement</h2>
+            </div>
+            <div class="notes-editor">
+                <textarea id="daily-notes" placeholder="Notez vos impressions, sensations, difficultés ou progrès d'aujourd'hui...">C'était une bonne séance !</textarea>
+            </div>
+            <button class="btn-primary" onclick="saveData()">
+                <i class="fas fa-save"></i> Sauvegarder mes données
+            </button>
+        </div>
+    </div>
+
+    <!-- Day Modal -->
+    <div class="modal" id="day-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideDayModal()">×</button>
+            <h2>Modifier le jour actuel</h2>
+            
+            <form onsubmit="saveDay(event)" style="margin-top: 20px;">
+                <div style="margin-bottom: 20px;">
+                    <label for="day-input">Jour actuel (1-90)</label>
+                    <input type="number" id="day-input" min="1" max="90" required>
+                </div>
+                <button type="submit" class="btn-primary">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Weight Modal -->
+    <div class="modal" id="weight-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideWeightModal()">×</button>
+            <h2>Suivi du Poids</h2>
+            
+            <form onsubmit="saveWeight(event)" style="margin-top: 20px;">
+                <div style="margin-bottom: 20px;">
+                    <label for="weight-input">Poids actuel (kg)</label>
+                    <input type="number" id="weight-input" step="0.1" min="50" max="200" required>
+                </div>
+                <button type="submit" class="btn-primary">Enregistrer</button>
+            </form>
+            
+            <div id="weight-history" style="margin-top: 30px;">
+                <!-- Weight history will be populated here -->
+            </div>
+            
+            <div id="weight-chart" class="progress-chart">
+                <!-- Chart will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Body Fat Modal -->
+    <div class="modal" id="bodyfat-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideBodyFatModal()">×</button>
+            <h2>Suivi de la Masse Grasse</h2>
+            
+            <form onsubmit="saveBodyFat(event)" style="margin-top: 20px;">
+                <div style="margin-bottom: 20px;">
+                    <label for="bodyfat-input">Masse grasse actuelle (%)</label>
+                    <input type="number" id="bodyfat-input" step="0.1" min="5" max="50" required>
+                </div>
+                <button type="submit" class="btn-primary">Enregistrer</button>
+            </form>
+            
+            <div id="bodyfat-history" style="margin-top: 30px;">
+                <!-- Body fat history will be populated here -->
+            </div>
+            
+            <div id="bodyfat-chart" class="progress-chart">
+                <!-- Chart will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Water Modal -->
+    <div class="modal" id="water-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideWaterModal()">×</button>
+            <h2>Suivi de l'Hydratation</h2>
+            <p style="margin-bottom: 20px; color: var(--text-secondary);">Sélectionnez la quantité d'eau que vous venez de boire :</p>
+            
+            <div class="water-grid">
+                <div class="water-option" data-amount="0.33" onclick="selectWaterAmount(0.33)">330ml</div>
+                <div class="water-option" data-amount="0.5" onclick="selectWaterAmount(0.5)">500ml</div>
+                <div class="water-option" data-amount="0.85" onclick="selectWaterAmount(0.85)">850ml</div>
+                <div class="water-option" data-amount="1" onclick="selectWaterAmount(1)">1L</div>
+            </div>
+            
+            <div class="water-controls">
+                <button class="water-btn add" onclick="addWater()">Ajouter de l'eau</button>
+                <button class="water-btn reset" onclick="resetWater()">Réinitialiser à 0</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supplement Info Modal -->
+    <div class="modal" id="supplement-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideSupplementModal()">×</button>
+            <h2 id="supplement-title">Information Complément</h2>
+            <div id="supplement-info">
+                <!-- Supplement info will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Meal Info Modal -->
+    <div class="modal" id="meal-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideMealModal()">×</button>
+            <h2 id="meal-title">Détails du repas</h2>
+            <div id="meal-info">
+                <!-- Meal info will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Calories Info Modal -->
+    <div class="modal" id="calories-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideCaloriesModal()">×</button>
+            <h2 id="calories-title">Stratégie Calorique</h2>
+            <div id="calories-info">
+                <!-- Calories info will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer Modal -->
+    <div class="modal" id="timer-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideTimerModal()">×</button>
+            <h2>Minuterie d'Entraînement</h2>
+            <div class="timer-display" id="timer-display">00:00</div>
+            <div class="timer-controls">
+                <button class="timer-btn start" onclick="startTimer()">Démarrer</button>
+                <button class="timer-btn stop" onclick="stopTimer()">Arrêter</button>
+                <button class="timer-btn reset" onclick="resetTimer()">Réinitialiser</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Exercise Modal -->
+    <div class="modal" id="add-exercise-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideAddExerciseModal()">×</button>
+            <h2>Ajouter un exercice personnalisé</h2>
+            
+            <form onsubmit="addCustomExercise(event)" style="margin-top: 20px;">
+                <div style="margin-bottom: 15px;">
+                    <label for="exercise-name">Nom de l'exercice</label>
+                    <input type="text" id="exercise-name" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="exercise-details">Détails (séries, reps, repos)</label>
+                    <input type="text" id="exercise-details" required>
+                </div>
+                <button type="submit" class="btn-primary">Ajouter l'exercice</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Meal Modal -->
+    <div class="modal" id="add-meal-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideAddMealModal()">×</button>
+            <h2>Ajouter un repas personnalisé</h2>
+            
+            <form onsubmit="addCustomMeal(event)" style="margin-top: 20px;">
+                <div style="margin-bottom: 15px;">
+                    <label for="meal-name">Nom du repas</label>
+                    <input type="text" id="meal-name" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="meal-foods">Contenu du repas</label>
+                    <input type="text" id="meal-foods" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="meal-calories">Calories</label>
+                    <input type="number" id="meal-calories" required>
+                </div>
+                <button type="submit" class="btn-primary">Ajouter le repas</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FAB Timer -->
+    <div class="fab" onclick="showTimerModal()">⏱️</div>
+    <div class="fab fab-timer" onclick="toggleTimer()">
+        <i class="fas fa-play"></i>
+    </div>
+
+    <script>
+        // Global variables
+        let currentPhase = 1;
+        let currentDay = 0;
+        let weightHistory = [];
+        let bodyFatHistory = [];
+        let waterAmount = 1.5;
+        let waterGoal = 3;
+        let selectedWaterAmount = 0.33;
+        let customExercises = {};
+        let customMeals = {};
+        let adjustedNutritionData = {};
+        let adjustedMacroData = {};
+        let mealChoices = {};
+        let saveTimeout;
+        
+        let userData = {
+            currentDay: 3,
+            currentWeight: 102.5,
+            bodyFat: 27,
+            waterAmount: 1.5,
+            startWeight: 106,
+            startFat: 30,
+            targetWeight: 90,
+            targetFat: 15,
+            completedExercises: {},
+            dailyNotes: {},
+            customExercises: {},
+            customMeals: {},
+            mealChoices: {}
+        };
+
+        // Nutrition macros per phase
+        const macroData = {
+            1: { protein: 180, carbs: 250, fats: 70, fiber: 35 },
+            2: { protein: 190, carbs: 220, fats: 65, fiber: 35 },
+            3: { protein: 200, carbs: 180, fats: 60, fiber: 35 }
+        };
+
+        // Base nutrition data (for 106kg reference weight)
+        const nutritionDataBase = {
+            1: {
+                meals: [
+                    { 
+                        name: 'Petit-déjeuner', 
+                        options: {
+                            optionA: {
+                                foods: '3 œufs brouillés + 60g flocons d\'avoine + 1 banane', 
+                                calories: 450,
+                                macros: { protein: 30, carbs: 60, fats: 15, fiber: 8 },
+                                benefits: [
+                                    'Protéines pour la récupération musculaire',
+                                    'Glucides complexes pour une énergie durable',
+                                    'Potassium pour la fonction musculaire',
+                                    'Fibres pour la digestion'
+                                ]
+                            },
+                            optionB: {
+                                foods: '100g fromage blanc 0% + 40g muesli + 30g amandes + 1 kiwi', 
+                                calories: 420,
+                                macros: { protein: 28, carbs: 45, fats: 16, fiber: 9 },
+                                benefits: [
+                                    'Protéines de fromage blanc pour une digestion lente',
+                                    'Muesli pour les glucides complexes',
+                                    'Amandes pour les graisses saines',
+                                    'Kiwi pour la vitamine C'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Collation', 
+                        options: {
+                            optionA: {
+                                foods: '30g whey protéine + 1 pomme', 
+                                calories: 200,
+                                macros: { protein: 25, carbs: 20, fats: 2, fiber: 4 },
+                                benefits: [
+                                    'Protéines rapides pour la synthèse musculaire',
+                                    'Vitamines et antioxydants',
+                                    'Récupération rapide entre les repas'
+                                ]
+                            },
+                            optionB: {
+                                foods: '1 yaourt grec + 20g noix + 1 poire', 
+                                calories: 220,
+                                macros: { protein: 20, carbs: 18, fats: 10, fiber: 5 },
+                                benefits: [
+                                    'Protéines de yaourt grec',
+                                    'Graisses saines des noix',
+                                    'Fibres pour la satiété'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Déjeuner', 
+                        options: {
+                            optionA: {
+                                foods: '150g poulet + 100g riz basmati + ½ avocat', 
+                                calories: 650,
+                                macros: { protein: 45, carbs: 70, fats: 20, fiber: 6 },
+                                benefits: [
+                                    'Protéines complètes pour la construction musculaire',
+                                    'Glucides pour reconstituer le glycogène',
+                                    'Graisses saines pour les hormones',
+                                    'Fibres pour la satiété'
+                                ]
+                            },
+                            optionB: {
+                                foods: '150g steak haché 5% + 200g patate douce + légumes verts', 
+                                calories: 620,
+                                macros: { protein: 42, carbs: 65, fats: 18, fiber: 8 },
+                                benefits: [
+                                    'Fer pour la production d\'énergie',
+                                    'Vitamine B12 pour le système nerveux',
+                                    'Antioxydants pour la récupération'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Post-training', 
+                        options: {
+                            optionA: {
+                                foods: 'Shake whey + créatine + miel', 
+                                calories: 150,
+                                macros: { protein: 25, carbs: 20, fats: 1, fiber: 0 },
+                                benefits: [
+                                    'Protéines rapides pour la récupération',
+                                    'Créatine pour la force et la puissance',
+                                    'Glucides simples pour la recharge énergétique'
+                                ]
+                            },
+                            optionB: {
+                                foods: 'Shake protéiné + 1 banane', 
+                                calories: 180,
+                                macros: { protein: 25, carbs: 25, fats: 1, fiber: 2 },
+                                benefits: [
+                                    'Protéines rapides pour la synthèse musculaire',
+                                    'Potassium pour prévenir les crampes',
+                                    'Glucides pour restaurer les réserves de glycogène'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Dîner', 
+                        options: {
+                            optionA: {
+                                foods: '180g saumon + 300g patates douces + champignons', 
+                                calories: 550,
+                                macros: { protein: 40, carbs: 50, fats: 18, fiber: 8 },
+                                benefits: [
+                                    'Oméga-3 pour la récupération et l\'inflammation',
+                                    'Vitamine D pour la santé osseuse',
+                                    'Glucides complexes pour la nuit',
+                                    'Antioxydants pour la santé cellulaire'
+                                ]
+                            },
+                            optionB: {
+                                foods: '200g cabillaud + 150g quinoa + brocoli', 
+                                calories: 520,
+                                macros: { protein: 38, carbs: 55, fats: 15, fiber: 10 },
+                                benefits: [
+                                    'Protéines maigres pour la définition',
+                                    'Quinoa pour les protéines complètes',
+                                    'Fibres pour la digestion',
+                                    'Vitamine C pour le système immunitaire'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Avant coucher', 
+                        options: {
+                            optionA: {
+                                foods: '150g fromage blanc 0% + 15g amandes + fruits rouges', 
+                                calories: 300,
+                                macros: { protein: 25, carbs: 20, fats: 10, fiber: 5 },
+                                benefits: [
+                                    'Protéines lentes pour la nuit',
+                                    'Graisses saines pour la testostérone',
+                                    'Antioxydants pour la récupération',
+                                    'Tryptophane pour un meilleur sommeil'
+                                ]
+                            },
+                            optionB: {
+                                foods: 'Omelette 2 œufs + épinards + 30g fromage de chèvre', 
+                                calories: 280,
+                                macros: { protein: 24, carbs: 5, fats: 18, fiber: 2 },
+                                benefits: [
+                                    'Protéines complètes pour la nuit',
+                                    'Graisses saines pour les hormones',
+                                    'Calcium pour la santé osseuse',
+                                    'Tryptophane pour un sommeil réparateur'
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            2: {
+                meals: [
+                    { 
+                        name: 'Petit-déjeuner', 
+                        options: {
+                            optionA: {
+                                foods: 'Crêpes protéinées + fromage blanc 0%', 
+                                calories: 400,
+                                macros: { protein: 35, carbs: 45, fats: 10, fiber: 5 },
+                                benefits: [
+                                    'Protéines pour la construction musculaire',
+                                    'Glucides pour l\'énergie matinale',
+                                    'Calcium pour la santé osseuse'
+                                ]
+                            },
+                            optionB: {
+                                foods: '2 œufs pochés + 2 tranches pain complet + avocat', 
+                                calories: 420,
+                                macros: { protein: 25, carbs: 40, fats: 18, fiber: 8 },
+                                benefits: [
+                                    'Protéines complètes pour la construction musculaire',
+                                    'Graisses saines pour les hormones',
+                                    'Fibres pour la digestion'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Collation', 
+                        options: {
+                            optionA: {
+                                foods: '25g whey + 10 amandes', 
+                                calories: 180,
+                                macros: { protein: 20, carbs: 5, fats: 10, fiber: 3 },
+                                benefits: [
+                                    'Protéines rapides pour la synthèse musculaire',
+                                    'Graisses saines pour les hormones',
+                                    'Fibres pour la satiété'
+                                ]
+                            },
+                            optionB: {
+                                foods: '1 barre protéinée + 10 noix de cajou', 
+                                calories: 200,
+                                macros: { protein: 18, carbs: 15, fats: 12, fiber: 4 },
+                                benefits: [
+                                    'Protéines pour la récupération',
+                                    'Glucides pour l\'énergie',
+                                    'Graisses saines pour la satiété'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Déjeuner', 
+                        options: {
+                            optionA: {
+                                foods: 'Buddha bowl: quinoa + pois chiches + poulet', 
+                                calories: 600,
+                                macros: { protein: 40, carbs: 70, fats: 15, fiber: 12 },
+                                benefits: [
+                                    'Protéines complètes pour la construction musculaire',
+                                    'Glucides complexes pour l\'énergie durable',
+                                    'Fibres pour la digestion et la satiété'
+                                ]
+                            },
+                            optionB: {
+                                foods: '150g dinde + 100g sarrasin + salade verte', 
+                                calories: 580,
+                                macros: { protein: 42, carbs: 65, fats: 12, fiber: 10 },
+                                benefits: [
+                                    'Protéines maigres pour la définition',
+                                    'Glucides complexes pour l\'énergie',
+                                    'Fibres pour la digestion'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Post-training', 
+                        options: {
+                            optionA: {
+                                foods: 'Shake whey + créatine', 
+                                calories: 150,
+                                macros: { protein: 25, carbs: 5, fats: 1, fiber: 0 },
+                                benefits: [
+                                    'Protéines rapides pour la récupération',
+                                    'Créatine pour la force et la puissance'
+                                ]
+                            },
+                            optionB: {
+                                foods: 'Shake protéiné + 1 datte', 
+                                calories: 170,
+                                macros: { protein: 25, carbs: 15, fats: 1, fiber: 1 },
+                                benefits: [
+                                    'Protéines rapides pour la synthèse musculaire',
+                                    'Glucides rapides pour la récupération',
+                                    'Potassium pour prévenir les crampes'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Dîner', 
+                        options: {
+                            optionA: {
+                                foods: '150g steak + haricots verts + 100g riz', 
+                                calories: 520,
+                                macros: { protein: 35, carbs: 60, fats: 12, fiber: 8 },
+                                benefits: [
+                                    'Fer pour la production d\'énergie',
+                                    'Vitamine B12 pour le système nerveux',
+                                    'Antioxydants pour la récupération'
+                                ]
+                            },
+                            optionB: {
+                                foods: '180g saumon + asperges + 80g riz complet', 
+                                calories: 540,
+                                macros: { protein: 38, carbs: 50, fats: 20, fiber: 6 },
+                                benefits: [
+                                    'Oméga-3 pour réduire l\'inflammation',
+                                    'Protéines complètes pour la récupération',
+                                    'Fibres pour la digestion'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Avant coucher', 
+                        options: {
+                            optionA: {
+                                foods: 'Omelette 2 œufs + jambon', 
+                                calories: 250,
+                                macros: { protein: 25, carbs: 2, fats: 15, fiber: 0 },
+                                benefits: [
+                                    'Protéines lentes pour la nuit',
+                                    'Graisses saines pour les hormones',
+                                    'Tryptophane pour un meilleur sommeil'
+                                ]
+                            },
+                            optionB: {
+                                foods: 'Cottage cheese + 30g noix + cannelle', 
+                                calories: 240,
+                                macros: { protein: 24, carbs: 10, fats: 12, fiber: 2 },
+                                benefits: [
+                                    'Caséine pour une libération lente de protéines',
+                                    'Graisses saines pour les hormones',
+                                    'Cannelle pour la régulation glycémique'
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            3: {
+                meals: [
+                    { 
+                        name: 'Petit-déjeuner', 
+                        options: {
+                            optionA: {
+                                foods: 'Omelette 4 blancs 1 jaune + 1 tranche pain', 
+                                calories: 350,
+                                macros: { protein: 30, carbs: 35, fats: 10, fiber: 3 },
+                                benefits: [
+                                    'Protéines maigres pour la définition',
+                                    'Glucides complexes pour l\'énergie',
+                                    'Graisses saines pour les hormones'
+                                ]
+                            },
+                            optionB: {
+                                foods: '100g fromage blanc 0% + 30g flocons d\'avoine + 1 kiwi', 
+                                calories: 320,
+                                macros: { protein: 28, carbs: 40, fats: 5, fiber: 6 },
+                                benefits: [
+                                    'Protéines pour la construction musculaire',
+                                    'Glucides complexes pour l\'énergie durable',
+                                    'Vitamine C pour le système immunitaire'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Collation', 
+                        options: {
+                            optionA: {
+                                foods: '25g whey + 10 amandes', 
+                                calories: 150,
+                                macros: { protein: 20, carbs: 5, fats: 10, fiber: 3 },
+                                benefits: [
+                                    'Protéines rapides pour la synthèse musculaire',
+                                    'Graisses saines pour la satiété',
+                                    'Fibres pour la digestion'
+                                ]
+                            },
+                            optionB: {
+                                foods: '1 yaourt grec 0% + 1 cuillère à soupe de graines de chia', 
+                                calories: 140,
+                                macros: { protein: 18, carbs: 8, fats: 6, fiber: 7 },
+                                benefits: [
+                                    'Protéines pour la récupération',
+                                    'Oméga-3 pour réduire l\'inflammation',
+                                    'Fibres pour la digestion'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Déjeuner', 
+                        options: {
+                            optionA: {
+                                foods: '150g poulet + brocoli + 50g riz', 
+                                calories: 500,
+                                macros: { protein: 40, carbs: 45, fats: 12, fiber: 8 },
+                                benefits: [
+                                    'Protéines maigres pour la définition',
+                                    'Vitamine C pour le système immunitaire',
+                                    'Fibres pour la satiété'
+                                ]
+                            },
+                            optionB: {
+                                foods: '120g blanc de dinde + courgettes grillées + 40g quinoa', 
+                                calories: 480,
+                                macros: { protein: 38, carbs: 40, fats: 15, fiber: 7 },
+                                benefits: [
+                                    'Protéines maigres pour la définition',
+                                    'Glucides complexes pour l\'énergie',
+                                    'Fibres pour la digestion'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Post-training', 
+                        options: {
+                            optionA: {
+                                foods: 'BCAA ou whey', 
+                                calories: 120,
+                                macros: { protein: 25, carbs: 2, fats: 0, fiber: 0 },
+                                benefits: [
+                                    'BCAA pour la récupération musculaire',
+                                    'Prévention du catabolisme musculaire'
+                                ]
+                            },
+                            optionB: {
+                                foods: 'Shake protéiné + 1 cuillère de miel', 
+                                calories: 150,
+                                macros: { protein: 25, carbs: 15, fats: 1, fiber: 0 },
+                                benefits: [
+                                    'Protéines pour la récupération musculaire',
+                                    'Glucides pour restaurer le glycogène',
+                                    'Récupération rapide après l\'entraînement'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Dîner', 
+                        options: {
+                            optionA: {
+                                foods: '200g cabillaud + salade + 100g patate douce', 
+                                calories: 480,
+                                macros: { protein: 35, carbs: 50, fats: 10, fiber: 6 },
+                                benefits: [
+                                    'Protéines maigres pour la définition',
+                                    'Oméga-3 pour la récupération',
+                                    'Vitamines pour la santé globale'
+                                ]
+                            },
+                            optionB: {
+                                foods: '180g colin + haricots verts + 100g patate douce', 
+                                calories: 460,
+                                macros: { protein: 38, carbs: 45, fats: 8, fiber: 8 },
+                                benefits: [
+                                    'Protéines maigres pour la définition',
+                                    'Glucides complexes pour l\'énergie',
+                                    'Fibres pour la digestion'
+                                ]
+                            }
+                        }
+                    },
+                    { 
+                        name: 'Avant coucher', 
+                        options: {
+                            optionA: {
+                                foods: '150g fromage blanc 0% + cannelle', 
+                                calories: 200,
+                                macros: { protein: 25, carbs: 15, fats: 0, fiber: 0 },
+                                benefits: [
+                                    'Protéines lentes pour la nuit',
+                                    'Cannelle pour la régulation glycémique',
+                                    'Faible en calories pour la définition'
+                                ]
+                            },
+                            optionB: {
+                                foods: '1 scoop de caséine + 10g beurre de cacahuète', 
+                                calories: 180,
+                                macros: { protein: 24, carbs: 5, fats: 8, fiber: 2 },
+                                benefits: [
+                                    'Protéines à libération lente pour la nuit',
+                                    'Graisses saines pour les hormones',
+                                    'Faible en glucides pour la définition'
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        };
+
+        // Workout data
+        const workoutData = {
+            1: { // Phase 1
+                0: [ // Lundi - Push
+                    { name: 'Développé couché', details: '4 séries × 6 reps • Repos 2-3 min' },
+                    { name: 'Développé militaire', details: '3 séries × 8 reps • Repos 2 min' },
+                    { name: 'Écartés inclinés', details: '3 séries × 12 reps • Repos 1.5 min' },
+                    { name: 'Élévations latérales', details: '4 séries × 15 reps • Repos 1 min' },
+                    { name: 'Dips triceps', details: '3 séries × 10-12 reps • Repos 1.5 min' },
+                    { name: 'Extensions poulie', details: '3 séries × 15 reps • Repos 1 min' }
+                ],
+                1: [ // Mardi - Legs
+                    { name: 'Squat arrière', details: '4 séries × 6 reps • Repos 2-3 min' },
+                    { name: 'Soulevé de terre', details: '3 séries × 5 reps • Repos 2-3 min' },
+                    { name: 'Presse à cuisses', details: '3 séries × 8 reps • Repos 2 min' },
+                    { name: 'Leg curl', details: '3 séries × 10 reps • Repos 1.5 min' },
+                    { name: 'Mollets', details: '4 séries × 8-10 reps • Repos 1.5 min' },
+                    { name: 'Gainage', details: '3 séries × 45 sec • Repos 1 min' }
+                ],
+                2: [ // Mercredi - Cardio
+                    { name: 'Échauffement', details: '5 min marche rapide ou vélo léger' },
+                    { name: 'Cardio modéré', details: '30 min vélo/elliptique à 65-70% FCM' },
+                    { name: 'Étirements actifs', details: '10 min mobilité articulaire' },
+                    { name: 'Gainage', details: '3 × 30 sec planche • Repos 30 sec' },
+                    { name: 'Russian twists', details: '3 × 20 reps • Repos 30 sec' },
+                    { name: 'Retour au calme', details: '5 min marche lente + étirements' }
+                ],
+                3: [ // Jeudi - Pull
+                    { name: 'Rowing barre', details: '4 séries × 6 reps • Repos 2-3 min' },
+                    { name: 'Tractions', details: '3 séries × 8 reps • Repos 2 min' },
+                    { name: 'Tirage horizontal', details: '3 séries × 12 reps • Repos 1.5 min' },
+                    { name: 'Face pulls', details: '3 séries × 15 reps • Repos 1 min' },
+                    { name: 'Curl barre', details: '3 séries × 10 reps • Repos 1.5 min' },
+                    { name: 'Curl marteau', details: '3 séries × 12 reps • Repos 1 min' }
+                ],
+                4: [ // Vendredi - Legs Hypertrophy
+                    { name: 'Presse à cuisses', details: '4 séries × 12 reps • Repos 1.5 min' },
+                    { name: 'Fentes marchées', details: '3 séries × 10/jambe • Repos 1.5 min' },
+                    { name: 'RDL', details: '3 séries × 10-12 reps • Repos 2 min' },
+                    { name: 'Leg extension', details: '3 séries × 15 reps • Repos 1 min' },
+                    { name: 'Leg curl assis', details: '3 séries × 15 reps • Repos 1 min' },
+                    { name: 'Mollets debout', details: '4 séries × 12-15 reps • Repos 1 min' }
+                ],
+                5: [ // Samedi - HIIT
+                    { name: 'Échauffement vélo', details: '5 minutes intensité modérée' },
+                    { name: 'Sprint vélo', details: '8 × 30 sec sprint / 90 sec repos' },
+                    { name: 'Box jumps', details: '3 séries × 10 reps • Repos 1 min' },
+                    { name: 'Battle ropes', details: '3 séries × 30 sec • Repos 1 min' },
+                    { name: 'Burpees', details: '3 séries × 15 reps • Repos 1.5 min' },
+                    { name: 'Retour au calme', details: '5 minutes marche légère' }
+                ],
+                6: [] // Dimanche - Repos
+            },
+            2: { // Phase 2
+                0: [ // Lundi - Push Power
+                    { name: 'Développé incliné', details: '4 séries × 8 reps • Repos 2 min' },
+                    { name: 'Développé couché haltères', details: '3 séries × 10 reps • Repos 1.5 min' },
+                    { name: 'Écartés machine', details: '3 séries × 12 reps • Repos 1.5 min' },
+                    { name: 'Développé Arnold', details: '3 séries × 12 reps • Repos 1.5 min' },
+                    { name: 'Superset latérales + oiseau', details: '3 séries × 12+12 reps • Repos 1 min' },
+                    { name: 'Dips + Extensions', details: '3 séries × max+15 reps • Repos 1.5 min' }
+                ],
+                1: [ // Mardi - Pull Volume
+                    { name: 'Traction pronation', details: '4 séries × 8 reps • Repos 2 min' },
+                    { name: 'Rowing T-bar', details: '4 séries × 10 reps • Repos 2 min' },
+                    { name: 'Tirage poitrine large', details: '3 séries × 12 reps • Repos 1.5 min' },
+                    { name: 'Rowing poulie basse', details: '3 séries × 12 reps • Repos 1.5 min' },
+                    { name: 'Superset Curl barre + incliné', details: '3 séries × 10+8 reps • Repos 1.5 min' },
+                    { name: 'Face pull', details: '3 séries × 15 reps • Repos 1 min' }
+                ],
+                2: [ // Mercredi - Cardio Intensifié
+                    { name: 'Échauffement', details: '5 min vélo/rameur progressif' },
+                    { name: 'Intervalles modérés', details: '6 × 3 min à 75% FCM / 2 min récup' },
+                    { name: 'Circuit abdos', details: '3 tours: 20 crunchs + 30s planche + 15 leg raises' },
+                    { name: 'Cardio continu', details: '15 min à 65% FCM' },
+                    { name: 'Étirements', details: '10 min stretching complet' }
+                ],
+                3: [ // Jeudi - Legs Force
+                    { name: 'Squat avant', details: '4 séries × 8 reps • Repos 2 min' },
+                    { name: 'Presse 45°', details: '4 séries × 12 reps • Repos 2 min' },
+                    { name: 'Fentes bulgares', details: '3 séries × 10/jambe • Repos 1.5 min' },
+                    { name: 'Leg extension', details: '3 séries × 15 reps • Repos 1 min' },
+                    { name: 'Leg curl', details: '4 séries × 10 reps • Repos 1.5 min' },
+                    { name: 'Mollets', details: '4 séries × 12 reps • Repos 1 min' }
+                ],
+                4: [ // Vendredi - Push Hypertrophie
+                    { name: 'Développé couché machine', details: '3 séries × 10 reps • Repos 1.5 min' },
+                    { name: 'Pompes lestées', details: '3 séries × max reps • Repos 1.5 min' },
+                    { name: 'Élévations latérales poulie', details: '3 séries × 12/côté • Repos 1 min' },
+                    { name: 'Oiseau inversé machine', details: '3 séries × 15 reps • Repos 1 min' },
+                    { name: 'Extension triceps overhead', details: '3 séries × 12-15 reps • Repos 1 min' },
+                    { name: 'Finisher: 21s triceps', details: '2 séries • Repos 1.5 min' }
+                ],
+                5: [ // Samedi - HIIT Plus
+                    { name: 'Échauffement dynamique', details: '5 min mouvements articulaires' },
+                    { name: 'Circuit 1', details: '4 tours: 10 burpees + 20 mountain climbers + 30 jumping jacks' },
+                    { name: 'Sprint tapis', details: '10 × 20 sec sprint / 40 sec repos' },
+                    { name: 'Circuit 2', details: '3 tours: 15 squat jumps + 10 pompes + 20 fentes sautées' },
+                    { name: 'Core finisher', details: '100 russian twists + 50 bicyclettes + 25 V-ups' },
+                    { name: 'Récupération', details: '10 min marche + étirements' }
+                ],
+                6: [] // Dimanche - Repos
+            },
+            3: { // Phase 3
+                0: [ // Lundi - Upper Métabolique
+                    { 
+                        name: 'Triset: Développé couché haltères + Rowing haltères + Burpees', 
+                        details: '3 tours: 10 reps développé + 8 reps rowing + 10 burpees • Repos 2 min' 
+                    },
+                    { 
+                        name: 'Superset: Élévations latérales + Oiseau', 
+                        details: '3 séries: 12 reps élévations + 15 reps oiseau • Repos 1 min' 
+                    },
+                    { 
+                        name: 'Superset: Curl barre + Extensions triceps', 
+                        details: '3 séries: 10 reps curl + 15 reps extensions • Repos 1 min' 
+                    },
+                    { 
+                        name: 'Pompes à l\'échec', 
+                        details: '2 séries × max reps • Repos 1 min' 
+                    }
+                ],
+                1: [ // Mardi - Lower Circuit
+                    { 
+                        name: 'Circuit: Presse + Fentes + Jumps', 
+                        details: '3 tours: 15 reps presse + 10 reps fentes + 15 jumps • Repos 2 min' 
+                    },
+                    { 
+                        name: 'Soulevé sumo', 
+                        details: '3 séries × 8 reps • Repos 2 min' 
+                    },
+                    { 
+                        name: 'Superset: Leg curl + Hip thrust', 
+                        details: '3 séries: 12 reps leg curl + 15 reps hip thrust • Repos 1 min' 
+                    },
+                    { 
+                        name: 'Dropset mollets', 
+                        details: '3 séries: 20 reps poids moyen + échec poids léger • Repos 1 min' 
+                    },
+                    { 
+                        name: 'Crunch inversé', 
+                        details: '3 séries × 20 reps • Repos 30 sec' 
+                    }
+                ],
+                2: [ // Mercredi - Cardio Intense
+                    { name: 'Échauffement', details: '5 min progressif' },
+                    { name: 'HIIT vélo', details: '12 × 30 sec all-out / 30 sec repos' },
+                    { name: 'Circuit métabolique', details: '5 tours: 10 burpees + 20 box jumps + 30 battle ropes' },
+                    { name: 'Cardio steady', details: '20 min à 70% FCM' },
+                    { name: 'Abdos tabata', details: '8 × 20 sec travail / 10 sec repos' },
+                    { name: 'Cool down', details: '10 min étirements profonds' }
+                ],
+                3: [ // Jeudi - Full Body Force
+                    { name: 'Squat', details: '3 séries × 6 reps • Repos 2 min' },
+                    { name: 'Développé couché', details: '3 séries × 6 reps • Repos 2 min' },
+                    { name: 'Rowing barre', details: '3 séries × 8 reps • Repos 1.5 min' },
+                    { name: 'Développé militaire', details: '3 séries × 8 reps • Repos 1.5 min' },
+                    { name: 'RDL', details: '3 séries × 10 reps • Repos 1.5 min' },
+                    { name: 'Finisher: 50 burpees', details: 'Le plus vite possible' }
+                ],
+                4: [ // Vendredi - Épaules/Bras Détail
+                    { 
+                        name: 'Élévations latérales lourdes', 
+                        details: '4 séries × 10 reps • Repos 1.5 min' 
+                    },
+                    { 
+                        name: 'Oiseau poulie', 
+                        details: '4 séries × 12 reps • Repos 1 min' 
+                    },
+                    { 
+                        name: 'Développé militaire barre', 
+                        details: '3 séries × 6 reps • Repos 2 min' 
+                    },
+                    { 
+                        name: '21s biceps', 
+                        details: '3 séries (7 reps bas, 7 reps haut, 7 reps complet) • Repos 1.5 min' 
+                    },
+                    { 
+                        name: 'Dips triceps', 
+                        details: '3 séries × max reps • Repos 2 min' 
+                    },
+                    { 
+                        name: 'Dropset poulie triceps', 
+                        details: '2 séries: 12 reps poids moyen + échec poids léger • Repos 1 min' 
+                    }
+                ],
+                5: [ // Samedi - Circuit Total
+                    { name: 'Échauffement', details: '5 min mobilité dynamique' },
+                    { name: 'Circuit 1', details: '20 min AMRAP: 5 pull-ups + 10 pompes + 15 squats' },
+                    { name: 'Sprint intervalles', details: '8 × 100m sprint / 60 sec repos' },
+                    { name: 'Circuit 2', details: '4 tours: 20 thrusters + 15 burpees + 10 toes-to-bar' },
+                    { name: 'Finisher cardio', details: '1000m rameur le plus vite possible' },
+                    { name: 'Récupération', details: '15 min yoga/étirements' }
+                ],
+                6: [] // Dimanche - Repos
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            updateDisplay();
+            updateWaterTracker();
+            
+            // Add fade-in effect to all elements with the class
+            document.querySelectorAll('.fade-in').forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Auto-save notes
+            const notesField = document.getElementById('daily-notes');
+            notesField.addEventListener('input', function() {
+                debouncedSaveData();
+            });
+        });
+
+        // Save user data to localStorage
+        function saveUserData() {
+            userData.customExercises = customExercises;
+            userData.customMeals = customMeals;
+            userData.mealChoices = mealChoices;
+            localStorage.setItem('fitnessTrackerData', JSON.stringify(userData));
+            
+            // Show save indicator
+            const indicator = document.getElementById('save-indicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        // Debounced save function to prevent excessive saves
+        function debouncedSaveData() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(saveData, 500);
+        }
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const savedData = localStorage.getItem('fitnessTrackerData');
+            if (savedData) {
+                userData = JSON.parse(savedData);
+                document.getElementById('current-day').textContent = userData.currentDay;
+                document.getElementById('current-weight').textContent = userData.currentWeight + ' kg';
+                document.getElementById('body-fat').textContent = userData.bodyFat + '%';
+                waterAmount = userData.waterAmount;
+                document.getElementById('water-amount').textContent = waterAmount.toFixed(1) + ' L';
+                
+                // Update weight and fat targets
+                document.getElementById('start-weight').textContent = userData.startWeight;
+                document.getElementById('target-weight').textContent = userData.targetWeight;
+                document.getElementById('target-weight-display').textContent = userData.targetWeight;
+                document.getElementById('start-fat').textContent = userData.startFat;
+                document.getElementById('target-fat').textContent = userData.targetFat;
+                document.getElementById('target-fat-display').textContent = userData.targetFat;
+                
+                // Update custom setup fields
+                document.getElementById('custom-start-weight').value = userData.startWeight;
+                document.getElementById('custom-start-fat').value = userData.startFat;
+                document.getElementById('custom-target-weight').value = userData.targetWeight;
+                document.getElementById('custom-target-fat').value = userData.targetFat;
+                
+                if (userData.dailyNotes && userData.dailyNotes[userData.currentDay]) {
+                    document.getElementById('daily-notes').value = userData.dailyNotes[userData.currentDay];
+                }
+                
+                customExercises = userData.customExercises || {};
+                customMeals = userData.customMeals || {};
+                mealChoices = userData.mealChoices || {};
+                
+                if (userData.weightHistory) {
+                    weightHistory = userData.weightHistory;
+                }
+                
+                if (userData.bodyFatHistory) {
+                    bodyFatHistory = userData.bodyFatHistory;
+                }
+            }
+        }
+
+        // Save all data
+        function saveData() {
+            userData.currentDay = parseInt(document.getElementById('current-day').textContent);
+            userData.currentWeight = parseFloat(document.getElementById('current-weight').textContent);
+            userData.bodyFat = parseFloat(document.getElementById('body-fat').textContent);
+            userData.waterAmount = waterAmount;
+            userData.weightHistory = weightHistory;
+            userData.bodyFatHistory = bodyFatHistory;
+            userData.mealChoices = mealChoices;
+            
+            if (!userData.dailyNotes) userData.dailyNotes = {};
+            userData.dailyNotes[userData.currentDay] = document.getElementById('daily-notes').value;
+            
+            saveUserData();
+        }
+
+        // Apply custom settings
+        function applyCustomSettings() {
+            const startWeight = parseFloat(document.getElementById('custom-start-weight').value);
+            const startFat = parseFloat(document.getElementById('custom-start-fat').value);
+            const targetWeight = parseFloat(document.getElementById('custom-target-weight').value);
+            const targetFat = parseFloat(document.getElementById('custom-target-fat').value);
+            
+            userData.startWeight = startWeight;
+            userData.startFat = startFat;
+            userData.targetWeight = targetWeight;
+            userData.targetFat = targetFat;
+            
+            // Update UI
+            document.getElementById('start-weight').textContent = startWeight;
+            document.getElementById('target-weight').textContent = targetWeight;
+            document.getElementById('target-weight-display').textContent = targetWeight;
+            document.getElementById('start-fat').textContent = startFat;
+            document.getElementById('target-fat').textContent = targetFat;
+            document.getElementById('target-fat-display').textContent = targetFat;
+            
+            // Calculate adjustment factor based on new start weight
+            const REFERENCE_WEIGHT = 106;
+            const adjustmentFactor = startWeight / REFERENCE_WEIGHT;
+            
+            // Adjust nutrition data
+            adjustedNutritionData = {};
+            [1, 2, 3].forEach(phase => {
+                if (nutritionDataBase[phase]) {
+                    adjustedNutritionData[phase] = JSON.parse(JSON.stringify(nutritionDataBase[phase]));
+                    adjustedNutritionData[phase].meals.forEach(meal => {
+                        if (meal.options) {
+                            Object.values(meal.options).forEach(option => {
+                                option.calories = Math.round(option.calories * adjustmentFactor);
+                                option.macros.protein = Math.round(option.macros.protein * adjustmentFactor);
+                                option.macros.carbs = Math.round(option.macros.carbs * adjustmentFactor);
+                                option.macros.fats = Math.round(option.macros.fats * adjustmentFactor);
+                                option.macros.fiber = Math.round(option.macros.fiber * adjustmentFactor);
+                            });
+                        }
+                    });
+                }
+            });
+            
+            // Adjust macro data
+            adjustedMacroData = {};
+            [1, 2, 3].forEach(phase => {
+                if (macroData[phase]) {
+                    adjustedMacroData[phase] = JSON.parse(JSON.stringify(macroData[phase]));
+                    Object.keys(adjustedMacroData[phase]).forEach(key => {
+                        adjustedMacroData[phase][key] = Math.round(adjustedMacroData[phase][key] * adjustmentFactor);
+                    });
+                }
+            });
+            
+            saveData();
+            updateDisplay();
+        }
+
+        // Phase selection
+        function selectPhase(phase) {
+            currentPhase = phase;
+            document.querySelectorAll('.phase-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.phase-tab')[phase - 1].classList.add('active');
+            updateDisplay();
+        }
+
+        // Day selection
+        function selectDay(day) {
+            currentDay = day;
+            document.querySelectorAll('.workout-day').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.workout-day')[day].classList.add('active');
+            updateWorkoutDisplay();
+        }
+
+        // Update display
+        function updateDisplay() {
+            // Update progress bar
+            const currentDayValue = parseInt(document.getElementById('current-day').textContent);
+            const progress = (currentDayValue / 90) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+            
+            // Update macros - use adjusted if available
+            let macros;
+            if (Object.keys(adjustedMacroData).length > 0) {
+                macros = adjustedMacroData[currentPhase] || macroData[currentPhase];
+            } else {
+                macros = macroData[currentPhase];
+            }
+            
+            document.getElementById('protein-value').textContent = macros.protein + 'g';
+            document.getElementById('carbs-value').textContent = macros.carbs + 'g';
+            document.getElementById('fats-value').textContent = macros.fats + 'g';
+            document.getElementById('fiber-value').textContent = macros.fiber + 'g';
+            
+            // Calculate calories from macros
+            const calories = macros.protein * 4 + macros.carbs * 4 + macros.fats * 9;
+            document.getElementById('daily-calories').textContent = calories;
+            document.getElementById('phase-name').textContent = `Phase ${currentPhase}: ${['Force', 'Recomposition', 'Définition'][currentPhase - 1]}`;
+            
+            // Update workouts and nutrition
+            updateWorkoutDisplay();
+            updateNutritionDisplay();
+        }
+
+        // Update workout display
+        function updateWorkoutDisplay() {
+            const dayNames = ['Push', 'Legs', 'Cardio', 'Pull', 'Legs', 'HIIT', 'Repos'];
+            document.getElementById('workout-title').textContent = `Séance du jour - ${dayNames[currentDay]}`;
+            
+            const exercises = workoutData[currentPhase]?.[currentDay] || [];
+            const exerciseList = document.getElementById('exercise-list');
+            
+            // Add custom exercises for this phase and day
+            if (customExercises[currentPhase] && customExercises[currentPhase][currentDay]) {
+                exercises.push(...customExercises[currentPhase][currentDay]);
+            }
+            
+            exerciseList.innerHTML = exercises.map((ex, index) => `
+                <div class="exercise-item">
+                    <div class="exercise-check" onclick="this.classList.toggle('checked')"></div>
+                    <div>
+                        <div class="exercise-name">${ex.name}</div>
+                        <div class="exercise-details">${ex.details}</div>
+                    </div>
+                    <div class="exercise-actions">
+                        <div class="exercise-btn" onclick="showExerciseDetails(${index})">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="exercise-btn" onclick="logExercise(${index})">
+                            <i class="fas fa-history"></i>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update nutrition display
+        function updateNutritionDisplay() {
+            let meals;
+            if (Object.keys(adjustedNutritionData).length > 0) {
+                meals = adjustedNutritionData[currentPhase]?.meals || nutritionDataBase[1].meals;
+            } else {
+                meals = nutritionDataBase[currentPhase]?.meals || nutritionDataBase[1].meals;
+            }
+            
+            // Add custom meals for this phase
+            if (customMeals[currentPhase]) {
+                meals = [...meals, ...customMeals[currentPhase]];
+            }
+            
+            const mealList = document.getElementById('meal-list');
+            mealList.innerHTML = '';
+            
+            meals.forEach((meal, index) => {
+                let mealOption = null;
+                let isOptionMeal = false;
+                
+                if (meal.options) {
+                    isOptionMeal = true;
+                    // Get user choice or default to optionA
+                    if (!mealChoices[currentPhase]) mealChoices[currentPhase] = {};
+                    const choice = mealChoices[currentPhase][index] || 'optionA';
+                    mealOption = meal.options[choice];
+                } else {
+                    mealOption = meal;
+                }
+                
+                const mealItem = document.createElement('div');
+                mealItem.className = 'meal-item';
+                mealItem.onclick = () => showMealInfo(index, isOptionMeal);
+                
+                mealItem.innerHTML = `
+                    <div class="meal-info">
+                        <h4>${meal.name}</h4>
+                        <p class="meal-desc">${mealOption.foods}</p>
+                    </div>
+                    <div class="meal-calories">${mealOption.calories} kcal</div>
+                `;
+                
+                if (isOptionMeal) {
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'meal-options';
+                    
+                    const optionA = document.createElement('div');
+                    optionA.className = `meal-option-btn ${mealChoices[currentPhase]?.[index] === 'optionA' ? 'active' : ''}`;
+                    optionA.textContent = 'A';
+                    optionA.onclick = (e) => {
+                        e.stopPropagation();
+                        selectMealOption(currentPhase, index, 'optionA');
+                    };
+                    
+                    const optionB = document.createElement('div');
+                    optionB.className = `meal-option-btn ${mealChoices[currentPhase]?.[index] === 'optionB' ? 'active' : ''}`;
+                    optionB.textContent = 'B';
+                    optionB.onclick = (e) => {
+                        e.stopPropagation();
+                        selectMealOption(currentPhase, index, 'optionB');
+                    };
+                    
+                    optionsDiv.appendChild(optionA);
+                    optionsDiv.appendChild(optionB);
+                    mealItem.appendChild(optionsDiv);
+                }
+                
+                mealList.appendChild(mealItem);
+            });
+        }
+
+        // Select meal option
+        function selectMealOption(phase, mealIndex, option) {
+            if (!mealChoices[phase]) mealChoices[phase] = {};
+            mealChoices[phase][mealIndex] = option;
+            updateNutritionDisplay();
+            debouncedSaveData();
+        }
+
+        // Update water tracker
+        function updateWaterTracker() {
+            const waterGlasses = document.querySelectorAll('.water-glass');
+            const glassesFilled = Math.min(Math.floor(waterAmount / 0.5), 6);
+            
+            waterGlasses.forEach((glass, index) => {
+                if (index < glassesFilled) {
+                    glass.classList.add('filled');
+                } else {
+                    glass.classList.remove('filled');
+                }
+            });
+            
+            document.getElementById('water-amount').textContent = `${waterAmount.toFixed(1)} L`;
+        }
+
+        // Render progress chart
+        function renderProgressChart(data, containerId, maxValue) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            if (data.length === 0) return;
+            
+            // Get the last 5 entries
+            const recentData = data.slice(-5);
+            const maxDataValue = Math.max(...recentData.map(item => item.value));
+            
+            recentData.forEach((item, index) => {
+                const bar = document.createElement('div');
+                bar.className = 'chart-bar';
+                const height = Math.max(10, (item.value / maxDataValue) * 100);
+                bar.style.height = `${height}%`;
+                
+                const label = document.createElement('div');
+                label.className = 'chart-bar-label';
+                label.textContent = item.date;
+                
+                bar.appendChild(label);
+                container.appendChild(bar);
+            });
+        }
+
+        // Meal info modal
+        function showMealInfo(index, isOptionMeal = false) {
+            let meals;
+            if (Object.keys(adjustedNutritionData).length > 0) {
+                meals = adjustedNutritionData[currentPhase]?.meals || nutritionDataBase[1].meals;
+            } else {
+                meals = nutritionDataBase[currentPhase]?.meals || nutritionDataBase[1].meals;
+            }
+            
+            // Add custom meals for this phase
+            if (customMeals[currentPhase]) {
+                meals = [...meals, ...customMeals[currentPhase]];
+            }
+            
+            const meal = meals[index];
+            document.getElementById('meal-title').textContent = meal.name;
+            
+            let mealOption = null;
+            if (isOptionMeal) {
+                if (!mealChoices[currentPhase]) mealChoices[currentPhase] = {};
+                const choice = mealChoices[currentPhase][index] || 'optionA';
+                mealOption = meal.options[choice];
+            } else {
+                mealOption = meal;
+            }
+            
+            document.getElementById('meal-info').innerHTML = `
+                <div class="meal-modal-content">
+                    <div>
+                        <h3>Contenu</h3>
+                        <p>${mealOption.foods}</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Macronutriments</h3>
+                        <div class="meal-macros">
+                            <div class="macro-item">
+                                <div class="macro-value protein">${mealOption.macros.protein}g</div>
+                                <div class="macro-label">Protéines</div>
+                            </div>
+                            <div class="macro-item">
+                                <div class="macro-value carbs">${mealOption.macros.carbs}g</div>
+                                <div class="macro-label">Glucides</div>
+                            </div>
+                            <div class="macro-item">
+                                <div class="macro-value fats">${mealOption.macros.fats}g</div>
+                                <div class="macro-label">Lipides</div>
+                            </div>
+                            <div class="macro-item">
+                                <div class="macro-value fiber">${mealOption.macros.fiber}g</div>
+                                <div class="macro-label">Fibres</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="meal-benefits">
+                        <h3>Bénéfices pour votre transformation</h3>
+                        <ul>
+                            ${mealOption.benefits.map(b => `<li>${b}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('meal-modal').classList.add('show');
+        }
+
+        function hideMealModal() {
+            document.getElementById('meal-modal').classList.remove('show');
+        }
+
+        // Calories info modal
+        function showCaloriesInfo() {
+            document.getElementById('calories-title').textContent = `Stratégie Calorique - Phase ${currentPhase}`;
+            
+            let caloriesInfo = '';
+            if (currentPhase === 1) {
+                caloriesInfo = `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--accent-blue);">Phase 1: Force & Hypertrophie (J1-30)</h3>
+                        <p>Pendant cette phase, votre apport calorique est légèrement supérieur à votre maintenance (${document.getElementById('daily-calories').textContent} kcal) pour soutenir la croissance musculaire et la récupération.</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h4>Objectifs principaux :</h4>
+                        <ul style="padding-left: 20px;">
+                            <li>Augmentation de la masse musculaire</li>
+                            <li>Amélioration de la force maximale</li>
+                            <li>Adaptation neurologique aux exercices</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 0 8px 8px 0;">
+                        <p>💡 <strong>Conseil :</strong> Profitez de l'excédent calorique pour pousser plus lourd à l'entraînement et optimiser la synthèse protéique.</p>
+                    </div>
+                `;
+            } else if (currentPhase === 2) {
+                caloriesInfo = `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--accent-green);">Phase 2: Recomposition (J31-60)</h3>
+                        <p>En phase de recomposition, nous réduisons légèrement les calories (${document.getElementById('daily-calories').textContent} kcal) pour favoriser une perte de graisse tout en maintenant la masse musculaire.</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h4>Objectifs principaux :</h4>
+                        <ul style="padding-left: 20px;">
+                            <li>Réduction progressive de la masse grasse</li>
+                            <li>Maintien de la masse musculaire acquise</li>
+                            <li>Amélioration de la définition musculaire</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent-green); padding: 15px; border-radius: 0 8px 8px 0;">
+                        <p>💡 <strong>Conseil :</strong> Maintenez un apport élevé en protéines (1.8-2.2g/kg) pour préserver vos muscles pendant la perte de graisse.</p>
+                    </div>
+                `;
+            } else {
+                caloriesInfo = `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--accent-orange);">Phase 3: Définition (J61-90)</h3>
+                        <p>Durant la phase de définition, l'apport calorique est réduit (${document.getElementById('daily-calories').textContent} kcal) pour créer un déficit plus important et éliminer les dernières réserves de graisse.</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h4>Objectifs principaux :</h4>
+                        <ul style="padding-left: 20px;">
+                            <li>Révéler la définition musculaire</li>
+                            <li>Éliminer la graisse sous-cutanée résiduelle</li>
+                            <li>Préserver la masse musculaire acquise</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--accent-orange); padding: 15px; border-radius: 0 8px 8px 0;">
+                        <p>💡 <strong>Conseil :</strong> Augmentez légèrement les glucides les jours d'entraînement intense pour maintenir la performance.</p>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('calories-info').innerHTML = caloriesInfo;
+            document.getElementById('calories-modal').classList.add('show');
+        }
+
+        function hideCaloriesModal() {
+            document.getElementById('calories-modal').classList.remove('show');
+        }
+
+        // Day modal functions
+        function showDayModal() {
+            const currentDayValue = document.getElementById('current-day').textContent;
+            document.getElementById('day-input').value = parseInt(currentDayValue);
+            document.getElementById('day-modal').classList.add('show');
+        }
+
+        function hideDayModal() {
+            document.getElementById('day-modal').classList.remove('show');
+        }
+
+        function saveDay(event) {
+            event.preventDefault();
+            const newDay = parseInt(document.getElementById('day-input').value);
+            
+            if (newDay >= 1 && newDay <= 90) {
+                document.getElementById('current-day').textContent = newDay;
+                
+                // Déterminer automatiquement la phase selon le jour
+                let phase;
+                if (newDay <= 30) {
+                    phase = 1;
+                } else if (newDay <= 60) {
+                    phase = 2;
+                } else {
+                    phase = 3;
+                }
+                
+                // Si la phase change, la sélectionner automatiquement
+                if (phase !== currentPhase) {
+                    selectPhase(phase);
+                }
+                
+                updateDisplay();
+                hideDayModal();
+                debouncedSaveData();
+            }
+        }
+
+        // Weight modal functions
+        function showWeightModal() {
+            document.getElementById('weight-modal').classList.add('show');
+            updateWeightHistory();
+        }
+
+        function hideWeightModal() {
+            document.getElementById('weight-modal').classList.remove('show');
+        }
+
+        function saveWeight(event) {
+            event.preventDefault();
+            const weight = parseFloat(document.getElementById('weight-input').value);
+            
+            weightHistory.push({
+                date: new Date().toLocaleDateString('fr-FR'),
+                value: weight
+            });
+            
+            document.getElementById('current-weight').textContent = weight.toFixed(1) + ' kg';
+            updateWeightHistory();
+            hideWeightModal();
+            
+            // Reset form
+            document.getElementById('weight-input').value = '';
+            debouncedSaveData();
+        }
+
+        function updateWeightHistory() {
+            const historyDiv = document.getElementById('weight-history');
+            if (weightHistory.length > 0) {
+                historyDiv.innerHTML = '<h3>Historique</h3>' + 
+                    weightHistory.slice(-5).reverse().map(entry => `
+                        <div style="background: var(--bg-card); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                            <span>${entry.date}</span>
+                            <span style="float: right; color: var(--accent-blue);">${entry.value} kg</span>
+                        </div>
+                    `).join('');
+                
+                // Render chart
+                renderProgressChart(weightHistory, 'weight-chart', 110);
+            } else {
+                historyDiv.innerHTML = '<p>Aucun historique disponible</p>';
+            }
+        }
+
+        // Body fat modal functions
+        function showBodyFatModal() {
+            document.getElementById('bodyfat-modal').classList.add('show');
+            updateBodyFatHistory();
+        }
+
+        function hideBodyFatModal() {
+            document.getElementById('bodyfat-modal').classList.remove('show');
+        }
+
+        function saveBodyFat(event) {
+            event.preventDefault();
+            const bodyFat = parseFloat(document.getElementById('bodyfat-input').value);
+            
+            bodyFatHistory.push({
+                date: new Date().toLocaleDateString('fr-FR'),
+                value: bodyFat
+            });
+            
+            document.getElementById('body-fat').textContent = bodyFat.toFixed(1) + '%';
+            updateBodyFatHistory();
+            hideBodyFatModal();
+            
+            // Reset form
+            document.getElementById('bodyfat-input').value = '';
+            debouncedSaveData();
+        }
+
+        function updateBodyFatHistory() {
+            const historyDiv = document.getElementById('bodyfat-history');
+            if (bodyFatHistory.length > 0) {
+                historyDiv.innerHTML = '<h3>Historique</h3>' + 
+                    bodyFatHistory.slice(-5).reverse().map(entry => `
+                        <div style="background: var(--bg-card); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                            <span>${entry.date}</span>
+                            <span style="float: right; color: var(--accent-blue);">${entry.value}%</span>
+                        </div>
+                    `).join('');
+                
+                // Render chart
+                renderProgressChart(bodyFatHistory, 'bodyfat-chart', 50);
+            } else {
+                historyDiv.innerHTML = '<p>Aucun historique disponible</p>';
+            }
+        }
+
+        // Water modal functions
+        function showWaterModal() {
+            document.getElementById('water-modal').classList.add('show');
+        }
+
+        function hideWaterModal() {
+            document.getElementById('water-modal').classList.remove('show');
+        }
+
+        function selectWaterAmount(amount) {
+            selectedWaterAmount = amount;
+            document.querySelectorAll('.water-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function addWater() {
+            waterAmount += selectedWaterAmount;
+            if (waterAmount > waterGoal) {
+                waterAmount = waterGoal;
+            }
+            updateWaterTracker();
+            debouncedSaveData();
+            hideWaterModal();
+        }
+
+        function resetWater() {
+            waterAmount = 0;
+            updateWaterTracker();
+            debouncedSaveData();
+            hideWaterModal();
+        }
+
+        // Supplement modal functions
+        function showSupplementInfo(supplement) {
+            const supplementInfo = {
+                'magnesium': {
+                    name: 'Magnésium Bisglycinate Prozis',
+                    benefits: [
+                        'Améliore la qualité du sommeil et la récupération musculaire',
+                        'Réduit les crampes et les courbatures',
+                        'Aide à la synthèse protéique',
+                        'Diminue le stress et l\'anxiété'
+                    ],
+                    dosage: '400mg par jour',
+                    timing: 'Avant coucher (22h) - Favorise la relaxation et le sommeil profond',
+                    warning: 'Compatible avec la paroxétine. Peut avoir un léger effet laxatif si pris en excès.'
+                },
+                'vitamin-d3': {
+                    name: 'Vitamine D3 2000IU Prozis',
+                    benefits: [
+                        'Optimise la synthèse de testostérone',
+                        'Améliore l\'absorption du calcium',
+                        'Renforce le système immunitaire',
+                        'Combat la fatigue et améliore l\'humeur'
+                    ],
+                    dosage: '2000 UI (1 softgel) par jour',
+                    timing: 'Petit-déjeuner - Meilleure absorption avec des lipides',
+                    warning: 'Prendre avec un repas contenant des lipides pour une absorption optimale.'
+                },
+                'carnitine': {
+                    name: 'L-Carnitine Liquide Prozis',
+                    benefits: [
+                        'Augmente l\'utilisation des graisses comme énergie',
+                        'Améliore l\'endurance pendant le cardio',
+                        'Réduit la fatigue musculaire',
+                        'Peut améliorer la sensibilité à l\'insuline'
+                    ],
+                    dosage: '1 dose (environ 2g)',
+                    timing: 'À jeun le matin (6h30) ou pré-cardio',
+                    warning: 'Peut causer de légères nausées si pris à jeun chez certaines personnes.'
+                },
+                'omega-3': {
+                    name: 'Omega-3 EPA & DHA Prozis',
+                    benefits: [
+                        'Réduit l\'inflammation musculaire',
+                        'Améliore la santé cardiovasculaire',
+                        'Favorise la perte de graisse abdominale',
+                        'Soutient la fonction cérébrale'
+                    ],
+                    dosage: '4 capsules par jour (2g EPA+DHA)',
+                    timing: '2 caps au petit-déjeuner + 2 caps au dîner',
+                    warning: 'Compatible avec la paroxétine. Consultez votre médecin si vous prenez des anticoagulants.'
+                },
+                'creatine': {
+                    name: 'Créatine Monohydrate Micronisée ON',
+                    benefits: [
+                        'Augmente la force et la puissance',
+                        'Améliore les performances sur séries courtes',
+                        'Accélère la récupération',
+                        'Favorise le gain de masse maigre'
+                    ],
+                    dosage: '5g par jour, tous les jours',
+                    timing: 'Post-entraînement avec le shake',
+                    warning: 'Augmentez votre consommation d\'eau (3-4L/jour).'
+                },
+                'multivitamin': {
+                    name: 'Multivitamines Prozis',
+                    benefits: [
+                        'Comble les carences nutritionnelles',
+                        'Soutient le système immunitaire',
+                        'Optimise le métabolisme énergétique',
+                        'Compense l\'absence de légumes'
+                    ],
+                    dosage: '1 comprimé par jour',
+                    timing: 'Petit-déjeuner',
+                    warning: 'Les urines peuvent devenir plus jaunes (vitamine B2), c\'est normal.'
+                }
+            };
+
+            const info = supplementInfo[supplement];
+            if (info) {
+                document.getElementById('supplement-title').textContent = info.name;
+                document.getElementById('supplement-info').innerHTML = `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 10px;">🎯 Bénéfices</h3>
+                        <ul style="padding-left: 20px;">
+                            ${info.benefits.map(b => `<li style="margin-bottom: 5px;">${b}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 10px;">💊 Dosage</h3>
+                        <p>${info.dosage}</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 10px;">⏰ Timing optimal</h3>
+                        <p>${info.timing}</p>
+                    </div>
+                    ${info.warning ? `
+                        <div style="background: rgba(245, 158, 11, 0.1); border: 2px solid var(--accent-orange); border-radius: 8px; padding: 15px;">
+                            <p style="color: var(--accent-orange); margin: 0;">⚠️ ${info.warning}</p>
+                        </div>
+                    ` : ''}
+                `;
+                document.getElementById('supplement-modal').classList.add('show');
+            }
+        }
+
+        function hideSupplementModal() {
+            document.getElementById('supplement-modal').classList.remove('show');
+        }
+
+        // Timer functionality
+        let timerInterval;
+        let seconds = 0;
+        let isTimerRunning = false;
+
+        function showTimerModal() {
+            document.getElementById('timer-modal').classList.add('show');
+        }
+
+        function hideTimerModal() {
+            document.getElementById('timer-modal').classList.remove('show');
+        }
+
+        function startTimer() {
+            if (!isTimerRunning) {
+                isTimerRunning = true;
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    updateTimerDisplay();
+                }, 1000);
+                document.querySelector('.fab-timer i').className = 'fas fa-pause';
+            }
+        }
+
+        function stopTimer() {
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                document.querySelector('.fab-timer i').className = 'fas fa-play';
+            }
+        }
+
+        function resetTimer() {
+            stopTimer();
+            seconds = 0;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            document.getElementById('timer-display').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function toggleTimer() {
+            if (isTimerRunning) {
+                stopTimer();
+            } else {
+                startTimer();
+            }
+        }
+
+        // Add exercise modal
+        function showAddExerciseModal() {
+            document.getElementById('add-exercise-modal').classList.add('show');
+        }
+
+        function hideAddExerciseModal() {
+            document.getElementById('add-exercise-modal').classList.remove('show');
+        }
+
+        function addCustomExercise(event) {
+            event.preventDefault();
+            const name = document.getElementById('exercise-name').value;
+            const details = document.getElementById('exercise-details').value;
+            
+            if (!name || !details) return;
+            
+            // Initialize custom exercises for this phase if needed
+            if (!customExercises[currentPhase]) {
+                customExercises[currentPhase] = {};
+            }
+            
+            if (!customExercises[currentPhase][currentDay]) {
+                customExercises[currentPhase][currentDay] = [];
+            }
+            
+            customExercises[currentPhase][currentDay].push({
+                name: name,
+                details: details
+            });
+            
+            updateWorkoutDisplay();
+            hideAddExerciseModal();
+            debouncedSaveData();
+            
+            // Reset form
+            document.getElementById('exercise-name').value = '';
+            document.getElementById('exercise-details').value = '';
+        }
+
+        // Add meal modal
+        function showAddMealModal() {
+            document.getElementById('add-meal-modal').classList.add('show');
+        }
+
+        function hideAddMealModal() {
+            document.getElementById('add-meal-modal').classList.remove('show');
+        }
+
+        function addCustomMeal(event) {
+            event.preventDefault();
+            const name = document.getElementById('meal-name').value;
+            const foods = document.getElementById('meal-foods').value;
+            const calories = parseInt(document.getElementById('meal-calories').value);
+            
+            if (!name || !foods || !calories) return;
+            
+            // Initialize custom meals for this phase if needed
+            if (!customMeals[currentPhase]) {
+                customMeals[currentPhase] = [];
+            }
+            
+            customMeals[currentPhase].push({
+                name: name,
+                foods: foods,
+                calories: calories,
+                macros: { protein: 0, carbs: 0, fats: 0, fiber: 0 }, // Placeholder
+                benefits: ['Repas personnalisé ajouté par l\'utilisateur']
+            });
+            
+            updateNutritionDisplay();
+            hideAddMealModal();
+            debouncedSaveData();
+            
+            // Reset form
+            document.getElementById('meal-name').value = '';
+            document.getElementById('meal-foods').value = '';
+            document.getElementById('meal-calories').value = '';
+        }
+
+        // Exercise functions
+        function showExerciseDetails(index) {
+            alert(`Détails pour l'exercice ${index + 1}`);
+        }
+
+        function logExercise(index) {
+            alert(`Historique pour l'exercice ${index + 1}`);
+        }
+    </script>
+</body>
+</html>
