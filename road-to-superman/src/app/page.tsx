@@ -25,7 +25,6 @@ export default function Home() {
     <AppProvider>
       <div className="container">
         <Header />
-        aaaaaaaaaaaaa
         <SetupCard />
         <ProgressOverview />
         <PhaseSelector />

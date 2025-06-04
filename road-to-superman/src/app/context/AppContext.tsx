@@ -1000,14 +1000,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return macros.protein * 4 + macros.carbs * 4 + macros.fats * 9;
   };
 
-  // Auto-save when userData changes
-  useEffect(() => {
-    const interval = setInterval(() => {
-      saveData();
-    }, 30000);
+  // // Auto-save when userData changes
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     saveData();
+  //   }, 30000);
 
-    return () => clearInterval(interval);
-  }, [saveData]);
+  //   return () => clearInterval(interval);
+  // }, [saveData]);
 
   // Supabase sync functions
   const syncToSupabase = useCallback(async () => {

@@ -66,11 +66,11 @@ export default function SetupCard() {
           <input
             type="number"
             id="custom-start-weight"
-            min="50"
+            min="0"
             max="200"
             value={startWeight}
             step="0.1"
-            onChange={(e) => setStartWeight(parseFloat(e.target.value) || 0)}
+            onChange={(e) => setStartWeight(parseFloat(e.target.value))}
           />
         </div>
 
@@ -79,11 +79,11 @@ export default function SetupCard() {
           <input
             type="number"
             id="custom-start-fat"
-            min="5"
-            max="50"
+            min="0"
+            max="100"
             value={startFat}
             step="0.1"
-            onChange={(e) => setStartFat(parseFloat(e.target.value) || 0)}
+            onChange={(e) => setStartFat(parseFloat(e.target.value))}
           />
         </div>
 
@@ -92,11 +92,11 @@ export default function SetupCard() {
           <input
             type="number"
             id="custom-target-weight"
-            min="50"
+            min="0"
             max="200"
             value={targetWeight}
             step="0.1"
-            onChange={(e) => setTargetWeight(parseFloat(e.target.value) || 0)}
+            onChange={(e) => setTargetWeight(parseFloat(e.target.value))}
           />
         </div>
 
@@ -105,11 +105,11 @@ export default function SetupCard() {
           <input
             type="number"
             id="custom-target-fat"
-            min="5"
-            max="20"
+            min="0"
+            max="100"
             value={targetFat}
             step="0.1"
-            onChange={(e) => setTargetFat(parseFloat(e.target.value) || 0)}
+            onChange={(e) => setTargetFat(parseFloat(e.target.value))}
           />
         </div>
       </div>
