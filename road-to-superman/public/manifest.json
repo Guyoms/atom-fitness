@@ -1,0 +1,26 @@
+{
+  "name": "Road to Superman",
+  "short_name": "Superman",
+  "description": "Suivez votre progression vers votre objectif fitness",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1d273a",
+  "theme_color": "#1d273a",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

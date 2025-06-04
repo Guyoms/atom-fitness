@@ -1,18 +1,20 @@
 "use client"
 
 import { useMutation } from "@tanstack/react-query"
-
 import { signInWithGoogle } from "@/actions/auth.actions"
-
-import { Button, Spinner, addToast } from "@heroui/react"
-
+import { Button, addToast } from "@heroui/react"
 import GoogleIcon from "../ui/icons/google"
+
+interface GoogleAuthError {
+  message: string;
+  code?: string;
+}
 
 export default function AuthGoogle() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: signInWithGoogle,
-    onError: (error: any) => {
+    onError: (error: GoogleAuthError) => {
       console.error("Error logging in with Google", error)
       const errorMessage = error instanceof Error ? error.message : String(error)
       addToast({

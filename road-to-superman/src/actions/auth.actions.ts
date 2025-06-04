@@ -1,25 +1,18 @@
 "use server"
 
-import { cache } from "react"
-
 import { revalidatePath } from "next/cache"
-import { cookies, headers } from "next/headers"
+import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 
-
 import { AUTH_CALLBACK_GOOGLE_ROUTE, AUTH_CALLBACK_ROUTE, AUTH_ROUTE } from "@/configs/routes"
-import { createClient } from "@supabase/supabase-js"
 import { SignInFormType, SignUpFormType } from "@/types/auth.type"
 import { createSupabaseClient } from "@/libs/supabase/server"
 
-export const getUser = cache(async () => {
-  const supabase = await createSupabaseClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
-});
+export async function getUser() {
+  const supabase = await createSupabaseClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  return user
+}
 
 export async function login(formData: SignInFormType) {
   const supabase = await createSupabaseClient()

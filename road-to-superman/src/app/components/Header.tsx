@@ -6,7 +6,6 @@ import { Card, CardBody, User } from '@heroui/react';
 
 const Header = () => {
   const { profile } = useProfileContext()
-
   const profileData = profile.get()
 
   console.log("profile in header:", profile.get());
@@ -24,7 +23,7 @@ const Header = () => {
       </div>
       {profileData && (
         <div className="flex justify-center items-center mt-2">
-          <Card className="bg-[#1d273a] border border-[#2c3a54]" isPressable onPress={() => handleSignOut()}>
+          <Card className="bg-[#1d273a] border border-[#2c3a54]" isPressable onPress={handleSignOut}>
             <CardBody>
               <User
                 avatarProps={{ src: profileData.avatar || '' }}
@@ -32,10 +31,6 @@ const Header = () => {
                 description={profileData.email || ''} />
             </CardBody>
           </Card>
-          {/* <User
-            avatarProps={{ src: profileData.avatar || '' }}
-            name={profileData.username || ''}
-            description={profileData.email || ''} /> */}
         </div>
       )}
       {!profileData && (

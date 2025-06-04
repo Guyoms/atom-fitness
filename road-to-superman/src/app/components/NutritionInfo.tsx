@@ -42,7 +42,7 @@ const NutritionInfo = () => {
         <div className="macro-card">
           <div className="macro-value carbs">{macros.carbs}g</div>
           <div className="macro-name">Glucides</div>
-          <div className="macro-subtitle">Énergie pour l'entraînement</div>
+          <div className="macro-subtitle">Énergie pour l&apos;entraînement</div>
         </div>
         <div className="macro-card">
           <div className="macro-value fats">{macros.fats}g</div>
@@ -55,6 +55,7 @@ const NutritionInfo = () => {
           <div className="macro-subtitle">Digestion & satiété</div>
         </div>
       </div>
+      <p>L&apos;objectif est de maintenir un déficit calorique</p>
     </div>
   );
 };

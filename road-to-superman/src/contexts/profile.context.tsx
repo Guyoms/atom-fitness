@@ -13,7 +13,8 @@ type ProfileContextType = {
   user: Observable<User | null>
 }
 
-const ProfileContext = createContext<ProfileContextType | null>(null)
+// @ts-expect-error - Type definition will be added later
+const ProfileContext = createContext<ProfileContextType>(null)
 
 interface ProfileContextProviderProps {
   profile: UserProfile | null
@@ -24,7 +25,6 @@ function ProfileContextProvider({
   user,
   children,
 }: PropsWithChildren<ProfileContextProviderProps>) {
-  // @ts-ignore - Suppressing deep type instantiation error
   const profile$ = useObservable(profile)
   const user$ = useObservable(user)
 

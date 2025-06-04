@@ -4,6 +4,34 @@ import React from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useApp } from '../context/AppContext';
 
+interface MealOption {
+  foods: string;
+  calories: number;
+  macros: {
+    protein: number;
+    carbs: number;
+    fats: number;
+    fiber: number;
+  };
+  benefits: string[];
+}
+
+interface Meal {
+  name: string;
+  options?: {
+    [key: string]: MealOption;
+  };
+  foods?: string;
+  calories?: number;
+  macros?: {
+    protein: number;
+    carbs: number;
+    fats: number;
+    fiber: number;
+  };
+  benefits?: string[];
+}
+
 const NutritionSection = () => {
   const { currentPhase, getCurrentMeals, selectMealOption, userData } = useApp();
   
@@ -14,7 +42,7 @@ const NutritionSection = () => {
     selectMealOption(mealIndex, option);
   };
 
-  const getCurrentMealOption = (meal: any, mealIndex: number) => {
+  const getCurrentMealOption = (meal: Meal, mealIndex: number) => {
     if (meal.options) {
       const choice = userData.mealChoices[currentPhase]?.[mealIndex] || 'optionA';
       return meal.options[choice];

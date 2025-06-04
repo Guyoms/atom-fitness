@@ -1,7 +1,6 @@
 "use client";
 
-import { UserProfile } from '@/types/profile.type';
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 
 // Types
 interface MacroData {
@@ -21,8 +20,7 @@ interface MealOption {
 interface Meal {
   name: string;
   options?: {
-    optionA: MealOption;
-    optionB: MealOption;
+    [key: string]: MealOption;
   };
   foods?: string;
   calories?: number;
@@ -797,9 +795,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
-  const saveData = () => {
+  const saveData = useCallback(async () => {
     localStorage.setItem('fitnessTrackerData', JSON.stringify(userData));
-  };
+  }, [userData]);
 
   const updateUserData = (data: Partial<UserData>) => {
     setUserData(prev => ({ ...prev, ...data }));
@@ -838,7 +836,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     // Adjust calories and macros based on user's weight
     const adjustedMeals = baseMeals.map(meal => {
       if (meal.options) {
-        const adjustedOptions: any = {};
+        const adjustedOptions: Record<string, MealOption> = {};
         Object.entries(meal.options).forEach(([key, option]) => {
           adjustedOptions[key] = {
             ...option,
@@ -882,13 +880,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   // Auto-save when userData changes
   useEffect(() => {
-    if (userData !== defaultUserData) {
-      const timeoutId = setTimeout(() => {
-        saveData();
-      }, 500);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [userData]);
+    const interval = setInterval(() => {
+      saveData();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [saveData]);
 
   const contextValue: AppContextType = {
     currentPhase,
