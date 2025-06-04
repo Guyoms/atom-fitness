@@ -18,7 +18,6 @@ export const getUser = cache(async () => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  console.log("user de fou", user);
   return user;
 });
 

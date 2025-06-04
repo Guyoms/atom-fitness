@@ -7,18 +7,22 @@ import { User } from '@heroui/react';
 const Header = () => {
   const { profile } = useProfileContext()
 
+  const profileData = profile.get()
+
+  // console.log("profile in header:", profile);
+
   return (
     <header className="header fade-in">
       <div className="logo-text">
         <span className="road-to">ROAD TO</span>
         <span className="superman">SUPERMAN</span>
       </div>
-      {profile && profile.peek() && (
+      {profileData && (
         <div className="flex justify-center items-center">
           <User
-            avatarProps={{ src: profile.peek()?.avatar?.toString() || '' }}
-            name={profile.peek()?.username || ''}
-            description={profile.peek()?.email || ''} />
+            avatarProps={{ src: profileData.avatar || '' }}
+            name={profileData.username || ''}
+            description={profileData.email || ''} />
         </div>
       )}
       <div className="flex justify-end">

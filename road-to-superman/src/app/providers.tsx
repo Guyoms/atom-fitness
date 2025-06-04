@@ -22,12 +22,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchData = async () => {
       const fetchedUser = await getUser();
-      console.log("fetchData", fetchedUser)
       setUser(fetchedUser);
       if (fetchedUser) {
         const fetchedProfile = await getUserProfile(fetchedUser);
         setProfile(fetchedProfile);
-        console.log("profile", fetchedProfile)
       }
     };
 

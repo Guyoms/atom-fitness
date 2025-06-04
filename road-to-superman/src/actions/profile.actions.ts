@@ -22,7 +22,6 @@ export const getUserProfile = cache(async (user: User) => {
     .eq("id", user.id)
     .single()
 
-  console.log("data", data)
 
   if (error) throw error
 

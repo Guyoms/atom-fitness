@@ -1,6 +1,6 @@
 "use client"
 
-import { PropsWithChildren, createContext, useContext, useEffect } from "react"
+import { PropsWithChildren, createContext, useContext } from "react"
 
 import { Observable } from "@legendapp/state"
 import { useObservable } from "@legendapp/state/react"
@@ -25,19 +25,8 @@ function ProfileContextProvider({
   children,
 }: PropsWithChildren<ProfileContextProviderProps>) {
   // @ts-ignore - Suppressing deep type instantiation error
-  const profile$ = useObservable<UserProfile | null>(profile)
-  const user$ = useObservable<User | null>(user)
-
-  // Update observables when props change
-  useEffect(() => {
-    profile$.set(profile)
-    console.log("profile$ updated", profile$.get())
-  }, [profile, profile$])
-
-  useEffect(() => {
-    user$.set(user)
-    console.log("user$ updated", user$.get())
-  }, [user, user$])
+  const profile$ = useObservable(profile)
+  const user$ = useObservable(user)
 
   const value: ProfileContextType = {
     profile: profile$,
