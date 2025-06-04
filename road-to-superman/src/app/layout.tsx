@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getUserProfile } from '@/actions/profile.actions';
@@ -16,20 +16,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#1d273a",
+};
+
 export const metadata: Metadata = {
   title: "Road to Superman",
   description: "Suivez votre progression vers votre objectif fitness",
   manifest: "/manifest.json",
-  themeColor: "#1d273a",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "Road to Superman",
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
   },
   icons: {
     icon: [

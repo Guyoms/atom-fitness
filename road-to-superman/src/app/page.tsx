@@ -1,4 +1,4 @@
-
+import { Suspense } from 'react';
 import Header from './components/Header';
 import SetupCard from './components/SetupCard';
 import ProgressOverview from './components/ProgressOverview';
@@ -8,16 +8,24 @@ import WorkoutSection from './components/WorkoutSection';
 import NutritionSection from './components/NutritionSection';
 import SupplementsSection from './components/SupplementsSection';
 import NotesSection from './components/NotesSection';
+import SyncManager from './components/SyncManager';
 import { AppProvider } from './context/AppContext';
 import React from 'react';
 
+function SyncManagerWrapper() {
+  return (
+    <Suspense fallback={null}>
+      <SyncManager />
+    </Suspense>
+  );
+}
 
 export default function Home() {
-
   return (
     <AppProvider>
       <div className="container">
         <Header />
+        aaaaaaaaaaaaa
         <SetupCard />
         <ProgressOverview />
         <PhaseSelector />
@@ -28,6 +36,7 @@ export default function Home() {
         </div>
         <SupplementsSection />
         <NotesSection />
+        <SyncManagerWrapper />
       </div>
     </AppProvider>
   );

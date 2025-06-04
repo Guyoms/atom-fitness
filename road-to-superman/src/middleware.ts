@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const { supabaseResponse, user } = await updateSession(request)
+  const { response: supabaseResponse, user } = await updateSession(request)
 
   // Ignore les fichiers statiques
   if (

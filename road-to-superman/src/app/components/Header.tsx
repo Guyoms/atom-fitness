@@ -3,13 +3,12 @@ import React from 'react';
 import AuthGoogle from './auth/google.auth';
 import { useProfileContext } from '@/contexts/profile.context';
 import { Card, CardBody, User } from '@heroui/react';
+import { useApp } from '../context/AppContext';
 
 const Header = () => {
   const { profile } = useProfileContext()
   const profileData = profile.get()
-
-  console.log("profile in header:", profile.get());
-  console.log("profile in header:", profileData);
+  const { userData } = useApp();
 
   const handleSignOut = () => {
     console.log("signing out");
@@ -38,7 +37,7 @@ const Header = () => {
           <AuthGoogle />
         </div>
       )}
-      <p className="subtitle">De <span id="start-weight">106</span>kg à <span id="target-weight">90</span>kg | <span id="start-fat">30</span>% → <span id="target-fat">15</span>% MG</p>
+      <p className="subtitle">De <span id="start-weight">{userData.startWeight}</span>kg à <span id="target-weight">{userData.targetWeight}</span>kg | <span id="start-fat">{userData.startFat}</span>% → <span id="target-fat">{userData.targetFat}</span>% MG</p>
       <div className="progress-bar">
         <div className="progress-fill" id="progress-fill"></div>
       </div>

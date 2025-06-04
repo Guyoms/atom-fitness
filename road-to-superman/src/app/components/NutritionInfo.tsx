@@ -4,7 +4,7 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 
 const NutritionInfo = () => {
-  const { currentPhase, getCurrentMacros, getCurrentCalories } = useApp();
+  const { currentPhase, getCurrentMacros, getCurrentCalories, userData } = useApp();
   
   const macros = getCurrentMacros();
   const calories = getCurrentCalories();
@@ -12,13 +12,13 @@ const NutritionInfo = () => {
   const getPhaseDescription = (phase: number) => {
     switch (phase) {
       case 1:
-        return "Votre programme nutritionnel est conçu pour maximiser la croissance musculaire tout en réduisant la masse graisseuse.";
+        return `Votre programme nutritionnel est conçu pour maximiser la croissance musculaire tout en réduisant la masse graisseuse.\nDépart: ${userData.startWeight}kg, ${userData.startFat}% MG | Objectif: ${userData.targetWeight}kg, ${userData.targetFat}% MG.`;
       case 2:
-        return "Phase de recomposition corporelle : perdre du gras tout en maintenant la masse musculaire acquise.";
+        return `Phase de recomposition corporelle : perdre du gras tout en maintenant la masse musculaire acquise.\nDépart: ${userData.startWeight}kg, ${userData.startFat}% MG | Objectif: ${userData.targetWeight}kg, ${userData.targetFat}% MG.`;
       case 3:
-        return "Phase de définition : révéler votre physique en éliminant les dernières réserves de graisse.";
+        return `Phase de définition : révéler votre physique en éliminant les dernières réserves de graisse.\nDépart: ${userData.startWeight}kg, ${userData.startFat}% MG | Objectif: ${userData.targetWeight}kg, ${userData.targetFat}% MG.`;
       default:
-        return "Votre programme nutritionnel est conçu pour maximiser la croissance musculaire tout en réduisant la masse graisseuse.";
+        return `Votre programme nutritionnel est conçu pour maximiser la croissance musculaire tout en réduisant la masse graisseuse.\nDépart: ${userData.startWeight}kg, ${userData.startFat}% MG | Objectif: ${userData.targetWeight}kg, ${userData.targetFat}% MG.`;
     }
   };
 
@@ -29,6 +29,9 @@ const NutritionInfo = () => {
         <h2 className="section-title">Macros & Objectifs Nutritionnels - Phase {currentPhase}</h2>
       </div>
       <p>{getPhaseDescription(currentPhase)}</p>
+      <p style={{ marginTop: '10px', color: 'var(--text-secondary)' }}>
+        Poids actuel: <span style={{ color: 'var(--accent-blue)', fontWeight: 'bold' }}>{userData.currentWeight} kg</span> | Masse grasse actuelle: <span style={{ color: 'var(--accent-blue)', fontWeight: 'bold' }}>{userData.bodyFat}%</span>
+      </p>
       <p style={{ marginTop: '10px', color: 'var(--text-secondary)' }}>
         Calories journalières: <span style={{ color: 'var(--accent-blue)', fontWeight: 'bold' }}>{calories} kcal</span>
       </p>

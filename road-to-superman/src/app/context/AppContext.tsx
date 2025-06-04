@@ -71,8 +71,19 @@ interface AppContextType {
   // Meal choices
   selectMealOption: (mealIndex: number, option: string) => void;
   
+  // Custom settings
+  applyCustomSettings: (settings: {
+    startWeight: number;
+    startFat: number;
+    targetWeight: number;
+    targetFat: number;
+  }) => Promise<void>;
+  
   // Save/Load
-  saveData: () => void;
+  saveData: () => Promise<void>;
+  loadUserData: () => void;
+  syncToSupabase: () => Promise<void>;
+  syncFromSupabase: () => Promise<void>;
 }
 
 // Base nutrition data (for 106kg reference weight)
@@ -772,31 +783,44 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [currentPhase, setCurrentPhase] = useState(1);
   const [currentDay, setCurrentDay] = useState(0);
   const [userData, setUserData] = useState<UserData>(defaultUserData);
+  const [adjustedNutritionData, setAdjustedNutritionData] = useState<any>({});
+  const [adjustedMacroData, setAdjustedMacroData] = useState<any>({});
 
   // Load data on mount
   useEffect(() => {
     loadUserData();
   }, []);
 
-  const loadUserData = () => {
+  // Enhanced loadUserData function
+  const loadUserData = useCallback(() => {
     const savedData = localStorage.getItem('fitnessTrackerData');
     if (savedData) {
-      const parsed = JSON.parse(savedData);
-      setUserData(parsed);
-      
-      // Auto-select phase based on current day
-      if (parsed.currentDay <= 30) {
-        setCurrentPhase(1);
-      } else if (parsed.currentDay <= 60) {
-        setCurrentPhase(2);
-      } else {
-        setCurrentPhase(3);
+      try {
+        const parsed = JSON.parse(savedData);
+        setUserData(parsed);
+        
+        // Auto-select phase based on current day
+        if (parsed.currentDay <= 30) {
+          setCurrentPhase(1);
+        } else if (parsed.currentDay <= 60) {
+          setCurrentPhase(2);
+        } else {
+          setCurrentPhase(3);
+        }
+      } catch (error) {
+        console.error('Error loading user data:', error);
       }
     }
-  };
+  }, []);
 
+  // Enhanced saveData function
   const saveData = useCallback(async () => {
-    localStorage.setItem('fitnessTrackerData', JSON.stringify(userData));
+    try {
+      localStorage.setItem('fitnessTrackerData', JSON.stringify(userData));
+      console.log('SaveData: Data saved to localStorage', userData);
+    } catch (error) {
+      console.error('SaveData: Error saving user data:', error);
+    }
   }, [userData]);
 
   const updateUserData = (data: Partial<UserData>) => {
@@ -813,9 +837,101 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     updateUserData({ mealChoices: newMealChoices });
   };
 
+  const applyCustomSettings = useCallback(async (settings: {
+    startWeight: number;
+    startFat: number;
+    targetWeight: number;
+    targetFat: number;
+  }) => {
+    const { startWeight, startFat, targetWeight, targetFat } = settings;
+    
+    console.log('Context: Applying custom settings', settings);
+    
+    // Update userData
+    const newUserData = {
+      ...userData,
+      startWeight,
+      startFat,
+      targetWeight,
+      targetFat,
+      currentWeight: startWeight, // Reset current weight to start weight
+      bodyFat: startFat // Reset current body fat to start fat
+    };
+    
+    // Update the state first
+    setUserData(newUserData);
+    
+    // Calculate adjustment factor based on new start weight
+    const REFERENCE_WEIGHT = 106;
+    const adjustmentFactor = startWeight / REFERENCE_WEIGHT;
+    
+    // Adjust nutrition data
+    const newAdjustedNutritionData: any = {};
+    [1, 2, 3].forEach(phase => {
+      if (nutritionDataBase[phase]) {
+        newAdjustedNutritionData[phase] = JSON.parse(JSON.stringify(nutritionDataBase[phase]));
+        newAdjustedNutritionData[phase].meals.forEach((meal: any) => {
+          if (meal.options) {
+            Object.values(meal.options).forEach((option: any) => {
+              option.calories = Math.round(option.calories * adjustmentFactor);
+              option.macros.protein = Math.round(option.macros.protein * adjustmentFactor);
+              option.macros.carbs = Math.round(option.macros.carbs * adjustmentFactor);
+              option.macros.fats = Math.round(option.macros.fats * adjustmentFactor);
+              option.macros.fiber = Math.round(option.macros.fiber * adjustmentFactor);
+            });
+          }
+        });
+      }
+    });
+    
+    // Adjust macro data
+    const newAdjustedMacroData: any = {};
+    [1, 2, 3].forEach(phase => {
+      if (macroDataBase[phase]) {
+        newAdjustedMacroData[phase] = JSON.parse(JSON.stringify(macroDataBase[phase]));
+        Object.keys(newAdjustedMacroData[phase]).forEach(key => {
+          newAdjustedMacroData[phase][key] = Math.round(newAdjustedMacroData[phase][key] * adjustmentFactor);
+        });
+      }
+    });
+    
+    setAdjustedNutritionData(newAdjustedNutritionData);
+    setAdjustedMacroData(newAdjustedMacroData);
+    
+    // Save to localStorage immediately
+    try {
+      localStorage.setItem('fitnessTrackerData', JSON.stringify(newUserData));
+      console.log('Context: Data saved to localStorage');
+    } catch (error) {
+      console.error('Context: Error saving to localStorage:', error);
+    }
+  }, [userData]);
+
+  // Apply custom settings after loading if needed
+  useEffect(() => {
+    if (userData.startWeight !== 106 && userData.startWeight !== defaultUserData.startWeight) {
+      // Only apply if we haven't already applied custom settings
+      console.log('Auto-applying custom settings on load');
+      const hasCustomSettings = Object.keys(adjustedNutritionData).length > 0;
+      if (!hasCustomSettings) {
+        applyCustomSettings({
+          startWeight: userData.startWeight,
+          startFat: userData.startFat,
+          targetWeight: userData.targetWeight,
+          targetFat: userData.targetFat
+        });
+      }
+    }
+  }, [userData.startWeight, userData.startFat, userData.targetWeight, userData.targetFat]);
+
   const getCurrentMacros = (): MacroData => {
     const REFERENCE_WEIGHT = 106;
     const adjustmentFactor = userData.startWeight / REFERENCE_WEIGHT;
+    
+    // Use adjusted macros if available, otherwise calculate from base
+    if (Object.keys(adjustedMacroData).length > 0 && adjustedMacroData[currentPhase]) {
+      return adjustedMacroData[currentPhase];
+    }
     
     const baseMacros = macroDataBase[currentPhase] || macroDataBase[1];
     
@@ -831,35 +947,41 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const REFERENCE_WEIGHT = 106;
     const adjustmentFactor = userData.startWeight / REFERENCE_WEIGHT;
     
-    const baseMeals = nutritionDataBase[currentPhase]?.meals || nutritionDataBase[1].meals;
-    
-    // Adjust calories and macros based on user's weight
-    const adjustedMeals = baseMeals.map(meal => {
-      if (meal.options) {
-        const adjustedOptions: Record<string, MealOption> = {};
-        Object.entries(meal.options).forEach(([key, option]) => {
-          adjustedOptions[key] = {
-            ...option,
-            calories: Math.round(option.calories * adjustmentFactor),
-            macros: {
-              protein: Math.round(option.macros.protein * adjustmentFactor),
-              carbs: Math.round(option.macros.carbs * adjustmentFactor),
-              fats: Math.round(option.macros.fats * adjustmentFactor),
-              fiber: Math.round(option.macros.fiber * adjustmentFactor)
-            }
-          };
-        });
-        return { ...meal, options: adjustedOptions };
-      }
-      return meal;
-    });
+    // Use adjusted nutrition data if available
+    let baseMeals;
+    if (Object.keys(adjustedNutritionData).length > 0 && adjustedNutritionData[currentPhase]) {
+      baseMeals = adjustedNutritionData[currentPhase].meals;
+    } else {
+      baseMeals = nutritionDataBase[currentPhase]?.meals || nutritionDataBase[1].meals;
+      
+      // Adjust calories and macros based on user's weight
+      baseMeals = baseMeals.map((meal: any) => {
+        if (meal.options) {
+          const adjustedOptions: Record<string, MealOption> = {};
+          Object.entries(meal.options).forEach(([key, option]: [string, any]) => {
+            adjustedOptions[key] = {
+              ...option,
+              calories: Math.round(option.calories * adjustmentFactor),
+              macros: {
+                protein: Math.round(option.macros.protein * adjustmentFactor),
+                carbs: Math.round(option.macros.carbs * adjustmentFactor),
+                fats: Math.round(option.macros.fats * adjustmentFactor),
+                fiber: Math.round(option.macros.fiber * adjustmentFactor)
+              }
+            };
+          });
+          return { ...meal, options: adjustedOptions };
+        }
+        return meal;
+      });
+    }
 
     // Add custom meals for this phase
     if (userData.customMeals[currentPhase]) {
-      return [...adjustedMeals, ...userData.customMeals[currentPhase]];
+      return [...baseMeals, ...userData.customMeals[currentPhase]];
     }
 
-    return adjustedMeals;
+    return baseMeals;
   };
 
   const getCurrentExercises = (): Exercise[] => {
@@ -887,6 +1009,177 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return () => clearInterval(interval);
   }, [saveData]);
 
+  // Supabase sync functions
+  const syncToSupabase = useCallback(async () => {
+    try {
+      const { createClient } = await import('@supabase/supabase-js');
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('User not authenticated');
+
+      // Sync to user_progress table
+      const { error: progressError } = await supabase
+        .from('user_progress')
+        .upsert({
+          user_id: user.id,
+          current_day: userData.currentDay,
+          current_weight: userData.currentWeight,
+          body_fat: userData.bodyFat,
+          start_weight: userData.startWeight,
+          start_fat: userData.startFat,
+          target_weight: userData.targetWeight,
+          target_fat: userData.targetFat,
+          water_intake: userData.waterAmount ? { [new Date().toISOString().split('T')[0]]: userData.waterAmount } : {}
+        });
+      
+      if (progressError) throw progressError;
+
+      // Sync daily notes
+      for (const [day, note] of Object.entries(userData.dailyNotes)) {
+        if (note.trim()) {
+          await supabase
+            .from('daily_notes')
+            .upsert({
+              user_id: user.id,
+              day_number: parseInt(day),
+              note: note
+            });
+        }
+      }
+
+      // Sync completed exercises
+      for (const [key, completed] of Object.entries(userData.completedExercises)) {
+        if (completed) {
+          const [phase, dayNum, exerciseIndex] = key.split('_').map(Number);
+          await supabase
+            .from('completed_exercises')
+            .upsert({
+              user_id: user.id,
+              phase,
+              day_number: dayNum,
+              exercise_index: exerciseIndex,
+              exercise_name: `Exercise ${exerciseIndex}`,
+              completed: true,
+              completed_at: new Date().toISOString()
+            });
+        }
+      }
+
+      // Sync meal choices
+      for (const [phase, choices] of Object.entries(userData.mealChoices)) {
+        for (const [mealIndex, choice] of Object.entries(choices as Record<string, string>)) {
+          await supabase
+            .from('meal_choices')
+            .upsert({
+              user_id: user.id,
+              phase: parseInt(phase),
+              meal_index: parseInt(mealIndex),
+              meal_name: `Meal ${mealIndex}`,
+              chosen_option: choice
+            });
+        }
+      }
+
+      // Sync weight and body fat history
+      if (userData.weightHistory?.length > 0) {
+        for (const entry of userData.weightHistory) {
+          await supabase
+            .from('metrics_history')
+            .upsert({
+              user_id: user.id,
+              metric_type: 'weight',
+              metric_value: entry.value,
+              metric_date: new Date(entry.date).toISOString().split('T')[0]
+            });
+        }
+      }
+
+      if (userData.bodyFatHistory?.length > 0) {
+        for (const entry of userData.bodyFatHistory) {
+          await supabase
+            .from('metrics_history')
+            .upsert({
+              user_id: user.id,
+              metric_type: 'body_fat',
+              metric_value: entry.value,
+              metric_date: new Date(entry.date).toISOString().split('T')[0]
+            });
+        }
+      }
+
+    } catch (error) {
+      console.error('Error syncing to Supabase:', error);
+    }
+  }, [userData]);
+
+  const syncFromSupabase = useCallback(async () => {
+    try {
+      const { createClient } = await import('@supabase/supabase-js');
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('User not authenticated');
+
+      // Get all user data with the helper function
+      const { data: allData, error } = await supabase.rpc('get_user_complete_data', { 
+        p_user_id: user.id 
+      });
+
+      if (error) throw error;
+      if (!allData) return;
+
+      // Transform Supabase data to userData format
+      const newUserData: UserData = {
+        currentDay: allData.progress?.current_day || defaultUserData.currentDay,
+        currentWeight: allData.progress?.current_weight || defaultUserData.currentWeight,
+        bodyFat: allData.progress?.body_fat || defaultUserData.bodyFat,
+        waterAmount: Object.values(allData.progress?.water_intake || {})[0] as number || defaultUserData.waterAmount,
+        startWeight: allData.progress?.start_weight || defaultUserData.startWeight,
+        startFat: allData.progress?.start_fat || defaultUserData.startFat,
+        targetWeight: allData.progress?.target_weight || defaultUserData.targetWeight,
+        targetFat: allData.progress?.target_fat || defaultUserData.targetFat,
+        completedExercises: transformCompletedExercises(allData.completed_exercises || {}),
+        dailyNotes: allData.daily_notes || {},
+        customExercises: allData.custom_exercises || {},
+        customMeals: allData.custom_meals || {},
+        mealChoices: allData.meal_choices || {},
+        weightHistory: allData.weight_history || [],
+        bodyFatHistory: allData.body_fat_history || []
+      };
+
+      setUserData(newUserData);
+      
+      // Apply custom settings if they differ from defaults
+      if (newUserData.startWeight !== 106) {
+        applyCustomSettings({
+          startWeight: newUserData.startWeight,
+          startFat: newUserData.startFat,
+          targetWeight: newUserData.targetWeight,
+          targetFat: newUserData.targetFat
+        });
+      }
+
+    } catch (error) {
+      console.error('Error syncing from Supabase:', error);
+    }
+  }, [applyCustomSettings]);
+
+  // Helper function to transform completed exercises
+  const transformCompletedExercises = (exercises: any): { [key: string]: boolean } => {
+    const result: { [key: string]: boolean } = {};
+    Object.entries(exercises).forEach(([key, value]: [string, any]) => {
+      result[key] = value.completed;
+    });
+    return result;
+  };
+
   const contextValue: AppContextType = {
     currentPhase,
     currentDay,
@@ -899,7 +1192,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     getCurrentExercises,
     getCurrentCalories,
     selectMealOption,
-    saveData
+    applyCustomSettings,
+    saveData,
+    loadUserData,
+    syncToSupabase,
+    syncFromSupabase
   };
 
   return (
