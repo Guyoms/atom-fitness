@@ -29,14 +29,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = await getUser();
-  const profile = user != null ? await getUserProfile(user) : null
+  const profile = user != null ? await getUserProfile(user) : null;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <Providers>
+        <Providers initialUser={user} initialProfile={profile}>
           {children}
         </Providers>
       </body>

@@ -2,14 +2,19 @@
 import React from 'react';
 import AuthGoogle from './auth/google.auth';
 import { useProfileContext } from '@/contexts/profile.context';
-import { User } from '@heroui/react';
+import { Card, CardBody, User } from '@heroui/react';
 
 const Header = () => {
   const { profile } = useProfileContext()
 
   const profileData = profile.get()
 
-  // console.log("profile in header:", profile);
+  console.log("profile in header:", profile.get());
+  console.log("profile in header:", profileData);
+
+  const handleSignOut = () => {
+    console.log("signing out");
+  }
 
   return (
     <header className="header fade-in">
@@ -18,16 +23,26 @@ const Header = () => {
         <span className="superman">SUPERMAN</span>
       </div>
       {profileData && (
-        <div className="flex justify-center items-center">
-          <User
+        <div className="flex justify-center items-center mt-2">
+          <Card className="bg-[#1d273a] border border-[#2c3a54]" isPressable onPress={() => handleSignOut()}>
+            <CardBody>
+              <User
+                avatarProps={{ src: profileData.avatar || '' }}
+                name={profileData.username || ''}
+                description={profileData.email || ''} />
+            </CardBody>
+          </Card>
+          {/* <User
             avatarProps={{ src: profileData.avatar || '' }}
             name={profileData.username || ''}
-            description={profileData.email || ''} />
+            description={profileData.email || ''} /> */}
         </div>
       )}
-      <div className="flex justify-end">
-        <AuthGoogle />
-      </div>
+      {!profileData && (
+        <div className="flex justify-end">
+          <AuthGoogle />
+        </div>
+      )}
       <p className="subtitle">De <span id="start-weight">106</span>kg à <span id="target-weight">90</span>kg | <span id="start-fat">30</span>% → <span id="target-fat">15</span>% MG</p>
       <div className="progress-bar">
         <div className="progress-fill" id="progress-fill"></div>
