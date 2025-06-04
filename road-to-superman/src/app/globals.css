@@ -125,8 +125,9 @@ body {
 
 .container {
   max-width: 1400px;
-  margin: 0 20px;
+  margin: 0 auto;
   padding: 20px;
+  
 }
 
 .setup-card {
@@ -1151,4 +1152,26 @@ body {
   transform: scale(1.15) rotate(90deg);
   box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
   background: #059669;
+}
+
+.button-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.button-google:hover {
+  background-color: #e0e0e0;
+}
+
+.button-google .icon {
+  margin-right: 10px;
 }

@@ -6,33 +6,24 @@ import { revalidatePath } from "next/cache"
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
 
-import {
-  AUTH_EMAIL_CONFIRMATION_COOKIE_VALUE,
-  AUTH_STATE_COOKIE_NAME,
-  INVITATION_COOKIE_NAME,
-} from "@/configs/cookies"
-import { AUTH_CALLBACK_GOOGLE_ROUTE, AUTH_CALLBACK_ROUTE, AUTH_ROUTE } from "@/configs/routes"
 
+import { AUTH_CALLBACK_GOOGLE_ROUTE, AUTH_CALLBACK_ROUTE, AUTH_ROUTE } from "@/configs/routes"
+import { createClient } from "@supabase/supabase-js"
+import { SignInFormType, SignUpFormType } from "@/types/auth.type"
 import { createSupabaseClient } from "@/libs/supabase/server"
 
-import {
-  EmailFormType,
-  ResetPasswordFormType,
-  type SignInFormType,
-  type SignUpFormType,
-} from "@/types/auth.type"
-
 export const getUser = cache(async () => {
-  const supabase = createSupabaseClient()
+  const supabase = await createSupabaseClient();
+
   const {
     data: { user },
-  } = await supabase.auth.getUser()
-
-  return user
-})
+  } = await supabase.auth.getUser();
+  console.log("user de fou", user);
+  return user;
+});
 
 export async function login(formData: SignInFormType) {
-  const supabase = createSupabaseClient()
+  const supabase = await createSupabaseClient()
 
   const { error } = await supabase.auth.signInWithPassword({
     email: formData.email.toLowerCase(),
@@ -65,17 +56,13 @@ export async function login(formData: SignInFormType) {
     throw translatedError
   }
 
-  const cookiesStore = cookies()
-
-  const hasInvite = cookiesStore.has(INVITATION_COOKIE_NAME)
-
-  return hasInvite
+  return true
 }
 
 export async function signup(formData: SignUpFormType) {
-  const supabase = createSupabaseClient()
+  const supabase = await createSupabaseClient()
 
-  const origin = headers().get("origin")
+  const origin = (await headers()).get("origin")
 
   const { error } = await supabase.auth.signUp({
     email: formData.email.toLowerCase(),
@@ -90,118 +77,20 @@ export async function signup(formData: SignUpFormType) {
 
   if (error) throw error
 
-  const cookieStore = cookies()
-  cookieStore.set(AUTH_STATE_COOKIE_NAME, AUTH_EMAIL_CONFIRMATION_COOKIE_VALUE, {
-    maxAge: 3600, // Resend email option is available for 1 hour
-  })
-
   revalidatePath(AUTH_ROUTE, "layout")
   redirect(AUTH_ROUTE)
 }
 
-export async function checkUsernameAvailability(username: string) {
-  const supabase = createSupabaseClient()
-
-  const { data } = await supabase
-    .from("profiles")
-    .select("username")
-    .eq("username", username.toLowerCase())
-    .maybeSingle()
-
-  if (data) {
-    // username is not available
-    return false
-  }
-
-  // username is available
-  return true
-}
-
-export async function checkEmailAvailability(email: string) {
-  const supabase = createSupabaseClient()
-
-  const { data } = await supabase
-    .from("profiles")
-    .select("email")
-    .eq("email", email.toLowerCase())
-    .maybeSingle()
-
-  if (data) {
-    // email is not available
-    return false
-  }
-
-  // email is available
-  return true
-}
-
-export async function resendEmailConfirmation(data: EmailFormType) {
-  const supabase = createSupabaseClient()
-
-  const origin = headers().get("origin")
-
-  const { error } = await supabase.auth.resend({
-    type: "signup",
-    email: data.email.toLowerCase(),
-    options: {
-      emailRedirectTo: origin + AUTH_CALLBACK_ROUTE,
-    },
-  })
-
-  if (error) throw error
-}
-
-export async function sendResetPasswordEmail(data: EmailFormType) {
-  const supabase = createSupabaseClient()
-
-  const origin = headers().get("origin")
-
-  const { error } = await supabase.auth.resetPasswordForEmail(data.email.toLowerCase(), {
-    redirectTo: origin + AUTH_CALLBACK_ROUTE,
-  })
-
-  if (error) throw error
-}
-
-export async function resetPassword(data: ResetPasswordFormType) {
-  if (data.password !== data.confirmPassword) return "Passwords do not match"
-
-  const supabase = createSupabaseClient()
-
-  const { error } = await supabase.auth.updateUser({
-    password: data.password,
-  })
-
-  if (error) throw error
-}
-
-export async function updateEmailAddress(data: EmailFormType) {
-  const supabase = createSupabaseClient()
-
-  const origin = headers().get("origin")
-
-  const { error } = await supabase.auth.updateUser(
-    {
-      email: data.email,
-    },
-    {
-      emailRedirectTo: origin + AUTH_CALLBACK_ROUTE,
-    }
-  )
-
-  if (error) throw error
-}
-
 export async function signout() {
-  const supabase = createSupabaseClient()
+  const supabase = await createSupabaseClient()
   const { error } = await supabase.auth.signOut()
 
   if (error) throw error
 }
 
 export async function signInWithGoogle() {
-  const supabase = createSupabaseClient()
-  const origin = headers().get("origin")
+  const supabase = await createSupabaseClient()
+  const origin = (await headers()).get("origin")
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -223,8 +112,4 @@ export async function signInWithGoogle() {
   // If there's no URL, it might mean the user is already logged in
   // or some other scenario occurred. Redirect to a default page or handle as needed.
   // For now, let's redirect to the auth callback route implicitly handled by Supabase.
-}
-
-export async function removeAuthStateCookie() {
-  cookies().delete(AUTH_STATE_COOKIE_NAME)
 }

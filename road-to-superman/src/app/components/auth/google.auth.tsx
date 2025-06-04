@@ -29,7 +29,7 @@ export default function AuthGoogle() {
   return (
       <Button
         variant="bordered"
-        className="w-full min-h-[40px] gap-0 bg-[#FFF] font-semibold text-default-500 dark:text-default-300"
+        className="w-full mt-4 mb-4 max-w-[400px] hover:cursor-pointer mx-auto min-h-[40px] gap-0 bg-[#FFF] font-semibold text-default-500 dark:text-default-300 button-google"
         onPress={() => mutate()}
         startContent={!isPending && <GoogleIcon className="h-5 w-5" />}
         isLoading={isPending}
